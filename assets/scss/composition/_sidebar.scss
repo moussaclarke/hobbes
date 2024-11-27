@@ -1,0 +1,16 @@
+.has-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sidebar-gap, --space-s);
+    container-type: inline-size;
+}
+
+.has-sidebar > :first-child {
+    flex-grow: 1;
+}
+
+.has-sidebar > :last-child {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-inline-size: 55%;
+}

@@ -1,0 +1,31 @@
+@each $key, $value in $colours {
+    .#{$key} {
+        color: $value !important;
+    }
+
+    .bg-#{$key} {
+        background-color: $value !important;
+    }
+
+    .border-#{$key} {
+        border-color: $value !important;
+    }
+}
+
+.inverted {
+    background-color: $neutral-colour !important;
+    color: $inverse-colour !important;
+
+    table tr:nth-child(even) td {
+        background-color: rgba(0, 0, 0, 0.15) !important;
+    }
+}
+
+.reverted {
+    background-color: $inverse-colour !important;
+    color: $neutral-colour !important;
+
+    table tr:nth-child(even) td {
+        background-color: rgba(255, 255, 255, 0.15) !important;
+    }
+}

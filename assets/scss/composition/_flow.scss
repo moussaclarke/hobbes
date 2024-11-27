@@ -1,0 +1,11 @@
+.flow > * + * {
+    margin-top: var(--flow-space, 0.9em);
+}
+
+.flow.expand {
+    --flow-space: 2em;
+}
+
+.flow.tight {
+    --flow-space: 0.5em;
+}

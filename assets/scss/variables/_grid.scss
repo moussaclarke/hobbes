@@ -1,0 +1,22 @@
+:root {
+    --grid-min-width: 15rem;
+    --grid-max-width: 85vw;
+    --grid-gutter: var(
+        --space-xs,
+        clamp(1rem, calc(0.46rem + 2.68vw), 2.75rem)
+    );
+    @media (min-width: 768px) {
+        --grid-gutter: var(
+            --space-s,
+            clamp(1rem, calc(0.46rem + 2.68vw), 2.75rem)
+        );
+    }
+    @media (min-width: 1024px) {
+        --grid-gutter: var(
+            --space-m,
+            clamp(1rem, calc(0.46rem + 2.68vw), 2.75rem)
+        );
+    }
+}
+// see also what utopia would have generated
+/* @link https://utopia.fyi/grid/calculator?c=320,16,1.2,1240,18,1.25,8,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */

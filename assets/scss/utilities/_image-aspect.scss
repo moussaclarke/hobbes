@@ -1,0 +1,39 @@
+img.square {
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+
+    &.contain {
+        object-fit: contain;
+    }
+}
+
+img.letterbox {
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+
+    &.contain {
+        object-fit: contain;
+    }
+}
+
+img.ultrawide {
+    object-fit: cover;
+    aspect-ratio: 21 / 9;
+    width: 100%;
+
+    &.contain {
+        object-fit: contain;
+    }
+}
+
+img.megawide {
+    object-fit: cover;
+    aspect-ratio: 32 / 9;
+    width: 100%;
+
+    &.contain {
+        object-fit: contain;
+    }
+}

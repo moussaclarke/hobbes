@@ -1,0 +1,28 @@
+$primary-colour: #606c38;
+$secondary-colour: #dda15e;
+$vibrant-colour: #fef1ac;
+$muted-colour: #a5a2a2;
+$neutral-colour: #ffffe5;
+$inverse-colour: #283618;
+$transparent-colour: rgba(0, 0, 0, 0);
+$semi-transparent-colour: rgba(0, 0, 0, 0.3);
+
+$error-colour: #de1414;
+$warning-colour: #d88609;
+$success-colour: #28ab28;
+$info-colour: #1189b8;
+
+$colours: (
+    primary: $primary-colour,
+    secondary: $secondary-colour,
+    vibrant: $vibrant-colour,
+    muted: $muted-colour,
+    neutral: $neutral-colour,
+    inverse: $inverse-colour,
+    "transparent": $transparent-colour,
+    "semi-transparent": $semi-transparent-colour,
+    error: $error-colour,
+    warning: $warning-colour,
+    success: $success-colour,
+    info: $info-colour,
+);

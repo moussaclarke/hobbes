@@ -1,0 +1,14 @@
+.cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+
+    &.flex-nowrap {
+        flex-wrap: nowrap;
+    }
+
+    &.gap-0 {
+        gap: 0;
+    }
+}

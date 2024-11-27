@@ -1,0 +1,44 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $heading-font;
+    font-weight: bold;
+    color: $primary-colour;
+    letter-spacing: 0.005em;
+    margin-bottom: 0.1em;
+}
+
+h1,
+h2,
+h3 {
+    max-width: 25ch;
+
+    &.wide {
+        max-width: 40ch;
+    }
+}
+
+.inverted {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: $primary-colour;
+    }
+}
+
+@for $i from 1 through 6 {
+    h#{$i} {
+        font-size: var(--step-#{6-$i});
+        line-height: 1.25 + ($i - 1) * 0.05;
+    }
+}
+
+small {
+    font-size: var(--step--1);
+}

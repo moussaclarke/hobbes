@@ -1,0 +1,16 @@
+footer.footer {
+    @extend .cluster;
+    justify-content: space-between;
+    align-items: start;
+    gap: 3em;
+
+    @media screen and (max-width: 714px) {
+        div:first-child {
+            width: 100%;
+        }
+    }
+
+    i {
+        display: inline-block;
+    }
+}

@@ -1,0 +1,29 @@
+a {
+    text-decoration-skip-ink: auto;
+    color: $vibrant-colour;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+        filter: brightness(150%);
+    }
+
+    &.router-link-active {
+        filter: brightness(80%);
+    }
+
+    transition:
+        1s ease color,
+        1s ease filter,
+        1s ease text-shadow;
+
+    @each $key, $value in $colours {
+        &.#{$key} {
+            color: $value;
+
+            &:hover {
+                text-shadow: 0 0 2px $value;
+            }
+        }
+    }
+}
