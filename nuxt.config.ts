@@ -8,5 +8,8 @@ export default defineNuxtConfig({
     davUser: process.env.DAV_USER,
     davPassword: process.env.DAV_PASSWORD,
     davCalName: process.env.DAV_CAL_NAME,
+    davAuthMethod: process.env.DAV_AUTH_METHOD,
+    davBase: process.env.DAV_BASE,
+    davURI: process.env.DAV_URI,
   },
 });

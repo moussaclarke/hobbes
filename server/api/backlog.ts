@@ -1,21 +1,14 @@
 import { createDAVClient, getBasicAuthHeaders } from "tsdav";
+import davClient from "~/utils/davClient";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
 
   try {
-    const client = await createDAVClient({
-      serverUrl: "https://my.baikal.server/dav.php",
-      defaultAccountType: "caldav",
-      credentials: {
-        username: config.davUser,
-        password: config.davPassword,
-      },
-      authMethod: "Basic",
-    });
+    const client = await davClient().getDavClient();
     const calendars = await client.fetchCalendars();
     const calendar = calendars.find(
-      (calendar) => calendar.displayName === "Project Name Backlog",
+      (calendar) => calendar.displayName === config.davCalName,
     );
     if (!calendar) {
       return {
@@ -36,6 +29,7 @@ export default defineEventHandler(async (event) => {
           },
         },
       ],
+      headers: await davClient().getCalendarHeaders(),
     });
 
     return todos;
