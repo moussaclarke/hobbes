@@ -1,6 +1,9 @@
 const parseValue = (line: string) => {
-  const [key, ...values] = line.split(':');
-  return { key, value: values.join(':') };
+  // Split only on first occurrence of ':' to handle ALTREP and other parameters
+  const splitIndex = line.indexOf(':');
+  const key = line.substring(0, splitIndex);
+  const value = line.substring(splitIndex + 1);
+  return { key: key.split(';')[0], value }; // Take base key without parameters
 };
 
 const unescapeDescription = (description: string): string =>
@@ -20,7 +23,16 @@ const parseCalDAVDate = (value: string) => {
 const parsers: Record<string, (value: string) => any> = {
   UID: (value) => ({ id: value }),
   SUMMARY: (value) => ({ summary: value }),
-  DESCRIPTION: (value) => ({ description: unescapeDescription(value) }),
+  DESCRIPTION: (value) => {
+      // Check if the value contains an ALTREP encoded description
+      const hasAltrep = value.includes('text/html,');
+      if (hasAltrep) {
+        // Take the part after the last colon which contains the actual description
+        const actualDescription = value.split(':').pop() || '';
+        return { description: unescapeDescription(actualDescription) };
+      }
+      return { description: unescapeDescription(value) };
+    },
   STATUS: (value) => ({ status: value }),
   CATEGORIES: (value) => ({ categories: value.split(',') }),
   CREATED: (value) => ({ created: parseCalDAVDate(value) }),
