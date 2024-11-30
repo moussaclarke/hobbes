@@ -1,11 +1,9 @@
 <template>
-  <div class="container">
-    <h1>Hello World</h1>
-    <ul>
-      <li v-for="task in data.data" :key="task.id">
-        {{ task.summary }}
-      </li>
-    </ul>
+  <div class="box">
+    <h1>All Tasks</h1>
+    <div class="grid">
+      <TaskCard v-for="task in data.data" :key="task.id" :task="task" />
+    </div>
   </div>
 </template>
 
