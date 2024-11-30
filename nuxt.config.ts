@@ -12,4 +12,10 @@ export default defineNuxtConfig({
     davBase: process.env.DAV_BASE,
     davURI: process.env.DAV_URI,
   },
+  nitro: {
+    prerender: {
+      autoSubfolderIndex: false,
+    },
+    preset: "cloudflare_pages",
+  }
 });
