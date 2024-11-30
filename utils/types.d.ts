@@ -4,11 +4,11 @@ declare interface Task {
   etag: string;
   summary: string;
   description: string;
-  status: string;
-  categories: string[];
+  status?: TaskStatus;
+  categories?: string[];
   created: Date;
   lastModified: Date;
   percentComplete: number;
 }
 
-declare enum TaskStatus { }
+declare type TaskStatus = "NEEDS-ACTION"| "IN-PROCESS" | "COMPLETED" | "CANCELLED";
