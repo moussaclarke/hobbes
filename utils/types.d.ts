@@ -9,6 +9,7 @@ declare interface Task {
   created: Date;
   lastModified: Date;
   percentComplete: number;
+  completed?: Date;
   rawData: string;
 }
 

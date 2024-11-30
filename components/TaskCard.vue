@@ -10,14 +10,31 @@
       />
     </div>
     <span class="x-small">
-      {{
-        props.task.status
-          ? "Status: " + props.task.status
-          : "No status assigned"
-      }}
+      {{ status }}
     </span>
   </div>
 </template>
 <script setup lang="ts">
 const props = defineProps<{ task: Task }>();
+const taskWithDates = useTaskDates(props.task);
+
+const stastusFormatters = {
+  COMPLETED: (task: Task) =>
+    `Marked as completed on ${task.completed?.toLocaleDateString()}`,
+  CANCELLED: () => "This task was cancelled",
+  "NEEDS-ACTION": () => "This task is open",
+  "IN-PROCESS": () => "This task is in progress",
+};
+
+const status = computed(() => {
+  if (!props.task.status) {
+    return "No status assigned";
+  }
+
+  const formatter = stastusFormatters[props.task.status];
+  if (formatter) {
+    return formatter(taskWithDates);
+  }
+  return props.task.status;
+});
 </script>

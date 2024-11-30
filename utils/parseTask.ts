@@ -37,7 +37,8 @@ const parsers: Record<string, (value: string) => any> = {
   CATEGORIES: (value) => ({ categories: value.split(',') }),
   CREATED: (value) => ({ created: parseCalDAVDate(value) }),
   'LAST-MODIFIED': (value) => ({ lastModified: parseCalDAVDate(value) }),
-  'PERCENT-COMPLETE': (value) => ({ percentComplete: parseInt(value, 10) })
+  'PERCENT-COMPLETE': (value) => ({ percentComplete: parseInt(value, 10) }),
+  COMPLETED: (value) => ({ completed: parseCalDAVDate(value) })
 };
 
 export function parseTask(rawTask: { url: string; etag?: string | undefined; data?: string | undefined }): Task {
