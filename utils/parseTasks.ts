@@ -28,13 +28,13 @@ const parsers: Record<string, (value: string) => any> = {
   'PERCENT-COMPLETE': (value) => ({ percentComplete: parseInt(value, 10) })
 };
 
-export function parseTodo(rawTodo: { url: string; etag?: string | undefined; data?: string | undefined }): Todo {
-  if (!rawTodo.data) {
+export function parseTask(rawTask: { url: string; etag?: string | undefined; data?: string | undefined }): Task {
+  if (!rawTask.data) {
     // todo: this might not need to throw an error, just return empty values
-    throw new Error('Invalid todo data');
+    throw new Error('Invalid task data');
   }
 
-  const lines = rawTodo.data.split('\n');
+  const lines = rawTask.data.split('\n');
 
   // Handle multiline descriptions by joining continued lines
   const joinedLines = lines.reduce((acc: string[], line: string) => {
@@ -53,8 +53,8 @@ export function parseTodo(rawTodo: { url: string; etag?: string | undefined; dat
     .reduce((acc, curr) => ({ ...acc, ...curr }), {});
 
   return {
-    url: rawTodo.url,
-    etag: rawTodo.etag?.replace(/^"|"$/g, ''), // Remove quotes at start and end
+    url: rawTask.url,
+    etag: rawTask.etag?.replace(/^"|"$/g, ''), // Remove quotes at start and end
     ...parsedProperties
-  } as Todo;
+  } as Task;
 }

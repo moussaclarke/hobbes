@@ -1,11 +1,11 @@
 import davClient from "~/utils/davClient";
-import { parseTodo } from "~/utils/parseTodo";
+import { parseTask } from "~/utils/parseTasks";
 
 export default defineEventHandler(async () => {
-  const rawTodos = await davClient().getTodos();
-  const todos: Todo[] = rawTodos.map(parseTodo);
+  const rawTasks = await davClient().getTasks();
+  const tasks: Task[] = rawTasks.map(parseTask);
 
   return {
-    data: todos,
+    data: tasks,
   };
 });

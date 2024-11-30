@@ -1,4 +1,4 @@
-declare interface Todo {
+declare interface Task {
   id: string;
   url: string;
   etag: string;
@@ -10,3 +10,5 @@ declare interface Todo {
   lastModified: Date;
   percentComplete: number;
 }
+
+declare enum TaskStatus { }

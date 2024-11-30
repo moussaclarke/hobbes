@@ -114,7 +114,7 @@ export default function () {
     })
   }
 
-  const getTodos = async () => {
+  const getTasks = async () => {
     const client = await getDavClient();
     const config = useRuntimeConfig();
     const calendars = await client.fetchCalendars();
@@ -128,7 +128,7 @@ export default function () {
       });
     }
 
-    const todos = await client.fetchCalendarObjects({
+    const tasks = await client.fetchCalendarObjects({
       calendar,
       filters: [
         {
@@ -143,10 +143,10 @@ export default function () {
       headers: await getCalendarHeaders(),
     });
 
-    return todos;
+    return tasks;
   }
 
   return {
-    getTodos
+    getTasks
   }
 }
