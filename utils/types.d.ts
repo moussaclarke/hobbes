@@ -9,6 +9,7 @@ declare interface Task {
   created: Date;
   lastModified: Date;
   percentComplete: number;
+  rawData: string;
 }
 
 declare type TaskStatus = "NEEDS-ACTION"| "IN-PROCESS" | "COMPLETED" | "CANCELLED";

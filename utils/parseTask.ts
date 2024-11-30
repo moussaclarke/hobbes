@@ -50,11 +50,22 @@ export function parseTask(rawTask: { url: string; etag?: string | undefined; dat
     .map(parseValue)
     .filter(({ key }) => key in parsers)
     .map(({ key, value }) => parsers[key](value))
-    .reduce((acc, curr) => ({ ...acc, ...curr }), {});
+    .reduce((acc, curr) => {
+        // Special handling for categories
+        if ('categories' in curr) {
+          return {
+            ...acc,
+            categories: [...(acc.categories || []), ...curr.categories]
+          };
+        }
+        // Normal handling for other properties
+        return { ...acc, ...curr };
+      }, {});
 
   return {
     url: rawTask.url,
     etag: rawTask.etag?.replace(/^"|"$/g, ''), // Remove quotes at start and end
+    rawData: rawTask.data,
     ...parsedProperties
   } as Task;
 }

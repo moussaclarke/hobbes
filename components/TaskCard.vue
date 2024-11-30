@@ -9,6 +9,13 @@
         :category="category"
       />
     </div>
+    <span class="x-small">
+      {{
+        props.task.status
+          ? "Status: " + props.task.status
+          : "No status assigned"
+      }}
+    </span>
   </div>
 </template>
 <script setup lang="ts">

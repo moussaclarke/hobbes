@@ -5,6 +5,9 @@
       <TaskCard v-for="task in data.data" :key="task.id" :task="task" />
     </div>
   </div>
+  <pre>
+  {{ data }}
+  </pre>
 </template>
 
 <script setup lang="ts">
