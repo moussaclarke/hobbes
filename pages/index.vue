@@ -1,10 +1,14 @@
 <template>
-  <div class="box">
+  <div class="box stack flow">
     <h1>{{ filter }} Tasks</h1>
     <div class="cluster">
-      <button class="button small" @click="filter = 'All'">All</button>
-      <button class="button small" @click="filter = 'Todo'">Todo</button>
-      <button class="button small" @click="filter = 'Done'">Done</button>
+      <button class="button vibrant small" @click="filter = 'All'">All</button>
+      <button class="button secondary small" @click="filter = 'Todo'">
+        Todo
+      </button>
+      <button class="button secondary small" @click="filter = 'Done'">
+        Done
+      </button>
     </div>
     <div class="grid constrained">
       <TaskCard v-for="task in filteredData" :key="task.id" :task="task" />

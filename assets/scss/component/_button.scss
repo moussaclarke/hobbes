@@ -1,59 +1,59 @@
 button.button,
 a.button {
-    background-color: $primary-colour;
-    color: $neutral-colour !important;
+  background-color: $primary-colour;
+  color: $inverse-colour !important;
+  font-weight: 400;
+  padding: 0.4rem 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  text-decoration-skip-ink: inherit;
+  text-decoration: none;
+  transition:
+    1s ease color,
+    1s ease filter;
+  white-space: nowrap;
+  border-width: 0;
+
+  &.outline {
+    border: 1px solid $neutral-colour;
+    outline-style: none;
+  }
+
+  i {
+    margin-left: 0.5rem;
     font-weight: 400;
-    padding: 0.8rem 2rem;
-    border-radius: 16px;
-    text-align: center;
-    cursor: pointer;
-    text-decoration-skip-ink: inherit;
-    text-decoration: none;
-    transition:
-        1s ease color,
-        1s ease filter;
-    white-space: nowrap;
-    border-width: 0;
+  }
 
-    &.outline {
-        border: 1px solid $neutral-colour;
-        outline-style: none;
+  // cycle through background colours
+  @each $key, $value in $colours {
+    &.#{$key} {
+      background-color: $value;
+
+      @if ($key == "neutral") {
+        // todo: only in dark mode, reverse in light mode
+        color: $inverse-colour !important;
+      }
     }
+  }
 
-    i {
-        margin-left: 0.5rem;
-        font-weight: 400;
-    }
+  &:hover,
+  &:focus,
+  &:active {
+    color: $neutral-colour;
+  }
 
-    // cycle through background colours
-    @each $key, $value in $colours {
-        &.#{$key} {
-            background-color: $value;
+  &:hover {
+    filter: contrast(150%);
+  }
 
-            @if ($key == "neutral") {
-                // todo: only in dark mode, reverse in light mode
-                color: $inverse-colour !important;
-            }
-        }
-    }
-
-    &:hover,
-    &:focus,
-    &:active {
-        color: $neutral-colour;
-    }
-
-    &:hover {
-        filter: contrast(150%);
-    }
-
-    &:focus,
-    &:active {
-        filter: brightness(150%);
-    }
+  &:focus,
+  &:active {
+    filter: brightness(150%);
+  }
 }
 
 .inverted button.button.transparent,
 .inverted a.button.transparent {
-    color: $inverse-colour !important;
+  color: $inverse-colour !important;
 }
