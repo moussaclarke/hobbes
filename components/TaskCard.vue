@@ -22,7 +22,7 @@ const stastusFormatters = {
   COMPLETED: (task: Task) =>
     `Marked as completed on ${task.completed?.toLocaleDateString()}`,
   CANCELLED: () => "This task was cancelled",
-  "NEEDS-ACTION": () => "This task is open",
+  "NEEDS-ACTION": () => "This task is still open",
   "IN-PROCESS": () => "This task is in progress",
 };
 
