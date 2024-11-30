@@ -13,4 +13,8 @@ declare interface Task {
   rawData: string;
 }
 
-declare type TaskStatus = "NEEDS-ACTION"| "IN-PROCESS" | "COMPLETED" | "CANCELLED";
+declare type TaskStatus =
+  | "NEEDS-ACTION"
+  | "IN-PROCESS"
+  | "COMPLETED"
+  | "CANCELLED";

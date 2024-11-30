@@ -2,10 +2,11 @@ import { createDAVClient, DAVClient, getBasicAuthHeaders } from "tsdav";
 import { ClientDigestAuth } from "@mreal/digest-auth";
 
 let client: any | undefined;
-let incomingDigest: { scheme: string, realm: string, nonce: string } | undefined;
+let incomingDigest:
+  | { scheme: string; realm: string; nonce: string }
+  | undefined;
 
 export default function () {
-
   const getCalendarHeaders = async () => {
     const config = useRuntimeConfig();
     await getDavClient();
@@ -17,7 +18,7 @@ export default function () {
       });
     }
 
-    if (config.davAuthMethod === 'basic') {
+    if (config.davAuthMethod === "basic") {
       return getBasicAuthHeaders({
         username: config.davUser,
         password: config.davPassword,
@@ -38,7 +39,7 @@ export default function () {
     return {
       Authorization: digest,
     };
-  }
+  };
 
   const getDavClient = async (): Promise<DAVClient> => {
     if (client) {
@@ -47,7 +48,7 @@ export default function () {
 
     const config = useRuntimeConfig();
 
-    if (config.davAuthMethod === 'basic') {
+    if (config.davAuthMethod === "basic") {
       client = await createDAVClient({
         serverUrl: config.davBase + config.davURI,
         defaultAccountType: "caldav",
@@ -59,7 +60,7 @@ export default function () {
       });
 
       return client;
-    } else if (config.davAuthMethod === 'digest') {
+    } else if (config.davAuthMethod === "digest") {
       const res = await fetch(config.davBase + config.davURI);
       const authenticateHeader = res.headers.get("www-authenticate");
 
@@ -97,13 +98,11 @@ export default function () {
       } catch (error) {
         // coerce error to error type
         if (error instanceof Error) {
-          throw createError(
-            {
-              statusCode: 500,
-              statusMessage: "Error authenticating with digest auth",
-              cause: error,
-            }
-          )
+          throw createError({
+            statusCode: 500,
+            statusMessage: "Error authenticating with digest auth",
+            cause: error,
+          });
         }
       }
     }
@@ -111,8 +110,8 @@ export default function () {
     throw createError({
       statusCode: 500,
       statusMessage: "Unsupported auth method. Check your config.",
-    })
-  }
+    });
+  };
 
   const getTasks = async () => {
     const client = await getDavClient();
@@ -144,9 +143,9 @@ export default function () {
     });
 
     return tasks;
-  }
+  };
 
   return {
-    getTasks
-  }
+    getTasks,
+  };
 }

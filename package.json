@@ -28,7 +28,8 @@
     "prettier": "^3.4.1",
     "sass": "^1.81.0",
     "unocss": "^0.64.1",
-    "vitest": "^2.1.6"
+    "vitest": "^2.1.6",
+    "wrangler": "^3.91.0"
   },
   "simple-git-hooks": {
     "commit-msg": "nlx commitlint --edit ${1}"
