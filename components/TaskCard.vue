@@ -1,17 +1,31 @@
 <template>
-  <div class="stack flow box border border-solid border-primary rounded">
-    <h2 class="medium primary">{{ props.task.summary }}</h2>
-    <p class="small prose">{{ props.task.description }}</p>
-    <div class="cluster">
-      <CategoryTag
-        v-for="category in props.task.categories"
-        :key="category"
-        :category="category"
-      />
+  <div
+    class="stack flow justify-between box border border-solid border-primary rounded"
+  >
+    <div class="stack flow">
+      <h2 class="medium primary">{{ props.task.summary }}</h2>
+      <p class="small prose">{{ props.task.description }}</p>
     </div>
-    <span class="x-small">
-      {{ status }}
-    </span>
+    <div class="stack flow">
+      <div class="cluster">
+        <CategoryTag
+          v-for="category in props.task.categories"
+          :key="category"
+          :category="category"
+        />
+      </div>
+      <div class="stack text-right border-t border-x-0 border-solid py-1">
+        <strong class="x-small">
+          {{ status }}
+        </strong>
+        <span class="x-small">
+          Created: {{ taskWithDates.created.toLocaleDateString() }}
+        </span>
+        <span class="x-small">
+          Last modified: {{ taskWithDates.lastModified.toLocaleDateString() }}
+        </span>
+      </div>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -22,7 +36,7 @@ const stastusFormatters = {
   COMPLETED: (task: Task) =>
     `Marked as completed on ${task.completed?.toLocaleDateString()}`,
   CANCELLED: () => "This task was cancelled",
-  "NEEDS-ACTION": () => "This task is still open",
+  "NEEDS-ACTION": () => "This task is open",
   "IN-PROCESS": () => "This task is in progress",
 };
 

@@ -27,8 +27,8 @@ const parsers: Record<string, (value: string) => any> = {
       // Check if the value contains an ALTREP encoded description
       const hasAltrep = value.includes('text/html,');
       if (hasAltrep) {
-        // Take the part after the last colon which contains the actual description
-        const actualDescription = value.split(':').pop() || '';
+        // Take the part after the last unescaped colon which contains the actual description
+        const actualDescription = value.split('\":').pop() || '';
         return { description: unescapeDescription(actualDescription) };
       }
       return { description: unescapeDescription(value) };
