@@ -1,51 +1,41 @@
 .grid {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(var(--grid-min-width), minmax(0, 1fr))
-    );
-    @media (min-width: 768px) {
-        gap: var(--grid-gutter);
-        grid-template-columns: repeat(
-            auto-fit,
-            minmax(var(--grid-min-width), 1fr)
-        );
-    }
-}
-
-.grid.product-hero {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(var(--grid-min-width), minmax(0, 1fr))
+  );
+  @media (min-width: 768px) {
+    gap: var(--grid-gutter);
     grid-template-columns: repeat(auto-fit, minmax(var(--grid-min-width), 1fr));
+  }
 }
 
 .grid.wide {
-    --grid-min-width: 25ch;
-    @media (min-width: 768px) {
-        grid-template-columns: repeat(
-            auto-fit,
-            minmax(var(--grid-min-width), minmax(0, 1fr))
-        );
-    }
-    @media (min-width: 1024px) {
-        grid-template-columns: repeat(
-            auto-fit,
-            minmax(var(--grid-min-width), 1fr)
-        );
-        --grid-gutter: var(
-            --space-xl,
-            clamp(1rem, calc(0.46rem + 2.68vw), 2.75rem)
-        );
-    }
+  --grid-min-width: 25ch;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(var(--grid-min-width), minmax(0, 1fr))
+    );
+  }
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(auto-fit, minmax(var(--grid-min-width), 1fr));
+    --grid-gutter: var(
+      --space-xl,
+      clamp(1rem, calc(0.46rem + 2.68vw), 2.75rem)
+    );
+  }
 }
 
 .grid.constrained {
-    @media (min-width: 768px) {
-        grid-template-columns: repeat(2, minmax(min(100%, 20rem), 1fr));
-    }
-    @media (min-width: 1226px) {
-        grid-template-columns: repeat(3, minmax(min(100%, 20rem), 1fr));
-    }
-    @media (min-width: 1566px) {
-        grid-template-columns: repeat(4, minmax(min(100%, 20rem), 1fr));
-    }
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, minmax(min(100%, 20rem), 1fr));
+  }
+  @media (min-width: 1226px) {
+    grid-template-columns: repeat(3, minmax(min(100%, 20rem), 1fr));
+  }
+  @media (min-width: 1566px) {
+    grid-template-columns: repeat(4, minmax(min(100%, 20rem), 1fr));
+  }
 }
