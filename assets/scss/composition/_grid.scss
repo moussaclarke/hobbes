@@ -29,6 +29,7 @@
 }
 
 .grid.constrained {
+  grid-template-columns: minmax(min(100%, 20rem), 100%);
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, minmax(min(100%, 20rem), 1fr));
   }
