@@ -1,9 +1,12 @@
 <template>
   <div class="box stack flow">
-    <h1>Issue Form</h1>
+    <h1>Open an issue</h1>
     <p>
       You can send me your feedback, bug reports and feature requests here.
-      These will be used to plan future development and priorities.
+      These will show up under the "Triage" category in tasks and will be used
+      to populate the backlog and to plan future development and priorities.
+      Before opening an issue, please search through the task list and make sure
+      it doesn't already exist.
     </p>
     <form class="stack flow">
       <div class="form-group">
@@ -19,7 +22,10 @@
           <option value="feature">New Feature</option>
           <option value="performance">Performance Issue</option>
         </select>
-        <small>{{ issueTypeHelpText }}</small>
+        <small>
+          {{ issueTypeHelpText }} If you're not sure about the issue type, pick
+          the nearest fit and we can amend it later.
+        </small>
       </div>
       <div class="form-group">
         <label for="priority">Priority</label>
@@ -29,8 +35,8 @@
           <option value="high">High</option>
         </select>
         <small>
-          How important is this issue? But remember the old adage - if
-          everything is high priority, then nothing is high priority.
+          How important do you feel this issue is? But remember the old adage -
+          if everything is high priority, then nothing is high priority.
         </small>
       </div>
       <div class="form-group">
@@ -43,8 +49,8 @@
           id="summary"
         />
         <small>
-          A concise summary of the issue. Tip: it's often better to try to
-          describe the problem that needs solving, rather than stating a
+          A concise summary of the issue. It's often more useful to try to
+          describe the problem that needs solving here, rather than stating a
           specific solution.
         </small>
       </div>
@@ -56,7 +62,12 @@
           name="description"
           id="description"
         ></textarea>
-        <small>Please describe the issue. {{ descriptionHelpText }}</small>
+        <small
+          v-html="
+            'Please describe the issue, considering the following points: ' +
+            descriptionHelpText
+          "
+        ></small>
       </div>
       <div class="form-group">
         <label for="context">Context</label>
@@ -66,12 +77,17 @@
           name="context"
           id="context"
         ></textarea>
-        <small>
-          Please provide some additional context. {{ contextHelpText }}
-        </small>
+        <small
+          v-html="'Please provide some additional context: ' + contextHelpText"
+        ></small>
       </div>
       <button class="button" type="submit">Submit</button>
     </form>
+    <small>
+      Tip: If you need to include screenshots, try
+      <a href="https://snipboard.io">snipboard</a>. For screen recordings, you
+      can upload them to dropbox, google drive or similar.
+    </small>
   </div>
 </template>
 <script setup lang="ts">
@@ -81,10 +97,20 @@ const summary = ref("");
 const description = ref("");
 const context = ref("");
 
+const formatHelpText = (text: string) => {
+  const points = text
+    .trim()
+    .split("\n")
+    .filter((line) => line.length > 0)
+    .map((line) => `<li>${line.trim()}</li>`)
+    .join("");
+  return points;
+};
+
 const issueTypeHelpTextMap = {
   bug: `"This isn't working correctly" (e.g. "Nothing happens when I click the submit button")`,
   change: `"It works, but needs to be different" (e.g. "The title text needs to be larger")`,
-  feature: `"I need something new added" (e.g. "We need a new widget type, or we need another way to add existing widgets.")`,
+  feature: `"I need something new added" (e.g. "We need a new widget type", or "we need a new way to edit widgets.")`,
   performance: `"Something is slow or unresponsive" (e.g. "The about page takes too long to load")`,
 };
 const issueTypeHelpText = computed(() => {
@@ -116,7 +142,7 @@ const descriptionHelpTextMap = {
 };
 
 const descriptionHelpText = computed(() => {
-  return descriptionHelpTextMap[issueType.value];
+  return formatHelpText(descriptionHelpTextMap[issueType.value]);
 });
 
 const contextHelpTextMap = {
@@ -127,7 +153,8 @@ const contextHelpTextMap = {
     Include a link to where this is happening, and links to screenshots/recordings if possible.
   `,
   change: `
-    Include a link to a relevant page where you would expect this to be changed, as well as links to screenshots/recordings of the existing state if possible.
+    Include a link to a relevant page where you would expect this to be changed
+    As well as links to screenshots/recordings of the existing state if possible.
   `,
   feature: `
     Where would this feature fit within the current system?
@@ -136,13 +163,13 @@ const contextHelpTextMap = {
   performance: `
     What device and browser are you using?
     What kind of network are you on? (e.g. WiFi, Fibre, 4G)
-    Include a link to where this is happening, and links to screenshots/recordings if applicable.
     Is this happening consistently or at specific times?
+    Include a link to where this is happening, and links to screenshots/recordings if applicable.
   `,
 };
 
 const contextHelpText = computed(() => {
-  return contextHelpTextMap[issueType.value];
+  return formatHelpText(contextHelpTextMap[issueType.value]);
 });
 
 const formData = reactive({
