@@ -1,75 +1,28 @@
-# Nuxt Minimal Starter
+# Project Tooling Web App
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This is very simple project management web app to present a list of CalDAV tasks and their current status. These are then filterable by status and category. The use case is for a solo dev (me) to share project status with clients. I manage the actual tasks via Thunderbird on my desktop, and Tasks.org on my phone. I run a baikal server which is what this is tested against, but it might work with other CalDAV servers.
 
-## Setup
-
-Make sure to install dependencies:
+## Build
 
 ```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+nlx nuxi build
 ```
 
-## Development Server
+You then have to open `dist/_worker.js/routes/api.backlog.mjs` and manually find and replace `n.fetch` with `fetch`. This is because nitro overwrites all instances of  the `fetch` function in the `tsdav` library with a non-existent custom one during build for some unknown reason 🤷‍♂️
 
-Start the development server on `http://localhost:3000`:
+## Deploy to Cloudflare Pages
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+nlx wrangler pages deploy dist
 ```
 
-## Production
+Env vars  currently need to be set up manually in the cloudflare dashboard. I've secured the app behind cloudflare access.
 
-Build the application for production:
+## Todo
 
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- Client ticket submission form - for inbox/triage
+- Pagination (don't load everything at once, will be better for performance)
+- Animations/transitions
+- Client-friendly UX/shortcuts (e.g view current sprint, view current backlog - while this is all achievable with existing filters, we could probably make it slightly more straightforward)
+- Support multiple project calendars
+- Support multiple clients - check the authenticated user via [this plugin](https://developers.cloudflare.com/pages/functions/plugins/cloudflare-access/) and implement project level permissions.
