@@ -7,14 +7,14 @@
       </h2>
     </div>
     <div class="cluster">
-      <button class="button vibrant small" @click="statusFilter = 'All'">
-        All
-      </button>
       <button class="button secondary small" @click="statusFilter = 'Todo'">
         Todo
       </button>
       <button class="button secondary small" @click="statusFilter = 'Done'">
         Done
+      </button>
+      <button class="button vibrant small" @click="statusFilter = 'All'">
+        All
       </button>
     </div>
     <div class="cluster">
@@ -38,7 +38,7 @@
 
 <script setup lang="ts">
 const { data } = await useFetch("/api/tasks");
-const statusFilter: Ref<"All" | "Todo" | "Done"> = ref("All");
+const statusFilter: Ref<"All" | "Todo" | "Done"> = ref("Todo");
 const categories = computed(() => [
   ...new Set(
     data.value.data.reduce((acc, curr) => {
