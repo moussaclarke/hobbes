@@ -34,6 +34,7 @@
   // Label variables
   --label-font-size: var(--small-font-size);
   --label-font-weight: 700;
+  --label-color: #{$primary-colour};
 
   // Slider variables
   --slider-track-background: #dfdfdf;
@@ -58,6 +59,7 @@
     font-family: var(--label-font-family);
     margin-bottom: calc(var(--input-size) / 2);
     white-space: initial;
+    color: var(--label-color);
 
     + small {
       font-style: initial;
