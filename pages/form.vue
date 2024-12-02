@@ -1,13 +1,24 @@
 <template>
   <div class="box stack flow">
     <h1>Open an issue</h1>
-    <p>
-      You can send me your feedback, bug reports and feature requests here.
-      These will show up under the "Triage" category in tasks and will be used
-      to populate the backlog and to plan future development and priorities.
-      Before opening an issue, please search through the task list and make sure
-      it doesn't already exist.
-    </p>
+    <div class="stack flow">
+      <p class="medium wide">
+        You can send me your feedback, bug reports and feature requests here.
+        These will show up under the "Triage" category in the task list, and
+        will be used to populate the backlog and to plan future development and
+        priorities.
+      </p>
+      <p class="medium">
+        Before opening an issue, please search through the task list and make
+        sure it doesn't already exist.
+      </p>
+      <p class="medium">
+        If there is something really critical that needs addressing immediately
+        (for example the site is completely down) it's probably better to
+        <a href="mailto:moussaclarke@gmail.com">email me</a>
+        directly.
+      </p>
+    </div>
     <form class="stack flow">
       <div class="grid">
         <div class="form-group">
@@ -42,10 +53,7 @@
           </select>
           <small>
             How important do you feel this issue is? But remember the old adage
-            - if everything is high priority, then nothing is high priority.<br />
-            If there is something really critical that needs addressing
-            immediately (for example the site is completely down) it's better to
-            email me directly.
+            - if everything is high priority, then nothing is high priority.
           </small>
         </div>
       </div>
@@ -95,8 +103,8 @@
     </form>
     <small>
       Tip: If you need to include screenshots, try
-      <a href="https://snipboard.io">snipboard</a>. For screen recordings, you
-      can upload them to dropbox, google drive or similar.
+      <a target="_blank" href="https://snipboard.io">snipboard</a>. For screen
+      recordings, you can upload them to dropbox, google drive or similar.
     </small>
   </div>
 </template>
