@@ -7,9 +7,9 @@ const issueTypeHelpTextMap = {
 
 const descriptionHelpTextMap = {
   bug: `
-    What's happening?
+    What's happening exactly?
     What did you expect to happen?
-    Include steps to reproduce.
+    Include all the steps to reproduce the behaviour.
   `,
   change: `
     What currently exists?
