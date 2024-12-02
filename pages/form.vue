@@ -19,7 +19,7 @@
         directly.
       </p>
     </div>
-    <form class="stack flow">
+    <form class="stack flow" @submit.prevent="submitForm">
       <div class="grid">
         <div class="form-group">
           <label for="issue-type">Issue Type</label>
@@ -150,7 +150,20 @@ const formData = reactive({
   context,
 });
 
-const submitForm = () => {
-  console.log(formData);
+const submitForm = async () => {
+  try {
+    await $fetch("/api/form", {
+      method: "POST",
+      body: formData,
+    });
+    // Clear form or show success message
+    summary.value = "";
+    description.value = "";
+    context.value = "";
+    // Maybe add a success message or redirect
+  } catch (error) {
+    // Handle error - maybe show an error message to user
+    console.error("Failed to submit form:", error);
+  }
 };
 </script>
