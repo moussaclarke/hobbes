@@ -9,35 +9,45 @@
       it doesn't already exist.
     </p>
     <form class="stack flow">
-      <div class="form-group">
-        <label for="issue-type">Issue Type</label>
-        <select
-          class="w-full"
-          v-model="issueType"
-          name="issue-type"
-          id="issue-type"
-        >
-          <option value="bug">Bug</option>
-          <option value="change">Change Request</option>
-          <option value="feature">New Feature</option>
-          <option value="performance">Performance Issue</option>
-        </select>
-        <small>
-          {{ issueTypeHelpText }} If you're not sure about the issue type, pick
-          the nearest fit and we can amend it later.
-        </small>
-      </div>
-      <div class="form-group">
-        <label for="priority">Priority</label>
-        <select class="w-full" v-model="priority" name="priority" id="priority">
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-        <small>
-          How important do you feel this issue is? But remember the old adage -
-          if everything is high priority, then nothing is high priority.
-        </small>
+      <div class="grid">
+        <div class="form-group">
+          <label for="issue-type">Issue Type</label>
+          <select
+            class="w-full"
+            v-model="issueType"
+            name="issue-type"
+            id="issue-type"
+          >
+            <option value="bug">Bug</option>
+            <option value="change">Change Request</option>
+            <option value="feature">New Feature</option>
+            <option value="performance">Performance Issue</option>
+          </select>
+          <small>
+            {{ issueTypeHelpText }} <br />If you're not sure about the issue
+            type, pick the nearest fit and we can amend it later.
+          </small>
+        </div>
+        <div class="form-group">
+          <label for="priority">Priority</label>
+          <select
+            class="w-full"
+            v-model="priority"
+            name="priority"
+            id="priority"
+          >
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+          <small>
+            How important do you feel this issue is? But remember the old adage
+            - if everything is high priority, then nothing is high priority.<br />
+            If there is something really critical that needs addressing
+            immediately (for example the site is completely down) it's better to
+            email me directly.
+          </small>
+        </div>
       </div>
       <div class="form-group">
         <label for="summary">Title</label>

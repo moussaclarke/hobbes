@@ -1,5 +1,7 @@
 <template>
   <div class="global">
-    <NuxtPage />
+    <AppNav />
+    <NuxtPage class="container w-full" />
+    <AppFooter />
   </div>
 </template>
