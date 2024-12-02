@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-const { data } = await useFetch("/api/backlog");
+const { data } = await useFetch("/api/tasks");
 const statusFilter: Ref<"All" | "Todo" | "Done"> = ref("All");
 const categories = computed(() => [
   ...new Set(
