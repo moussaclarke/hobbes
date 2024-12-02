@@ -8,7 +8,7 @@ This is very simple project management web app to present a list of CalDAV tasks
 nlx nuxi build
 ```
 
-You then have to open `dist/_worker.js/routes/api.tasks.mjs` and manually find and replace `n.fetch` with `fetch`. This is because nitro overwrites all instances of  the `fetch` function in the `tsdav` library with a non-existent custom one during build for some unknown reason 🤷‍♂️
+You then have to open `dist/_worker.js/chunks/_/davClient.mjs` and manually find and replace `n.fetch` with `fetch`. This is because nitro overwrites all instances of  the `fetch` function in the `tsdav` library with a non-existent custom one during build for some unknown reason 🤷‍♂️
 
 ## Deploy to Cloudflare Pages
 
