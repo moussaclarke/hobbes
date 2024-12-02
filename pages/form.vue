@@ -1,5 +1,11 @@
 <template>
   <div class="box stack flow">
+    <div v-if="successMessage" class="alert bg-success">
+      {{ successMessage }}
+    </div>
+    <div v-if="errorMessage" class="alert bg-error">
+      {{ errorMessage }}
+    </div>
     <h1>Open an issue</h1>
     <div class="stack flow">
       <p class="medium wide">
@@ -104,8 +110,14 @@
           v-html="'Please provide some additional context: ' + contextHelpText"
         ></small>
       </div>
-      <button class="button" type="submit">Submit</button>
+      <button :disabled="disabled" class="button" type="submit">Submit</button>
     </form>
+    <div v-if="successMessage" class="alert bg-success">
+      {{ successMessage }}
+    </div>
+    <div v-if="errorMessage" class="alert bg-error">
+      {{ errorMessage }}
+    </div>
     <small>
       Tip: If you need to include any screenshots, try
       <a target="_blank" href="https://snipboard.io">snipboard.io</a>. For
@@ -125,6 +137,9 @@ const priority = ref("low");
 const summary = ref("");
 const description = ref("");
 const context = ref("");
+const successMessage = ref("");
+const errorMessage = ref("");
+const disabled = ref(false);
 
 const formatHelpText = (text: string) => {
   const points = text
@@ -157,19 +172,32 @@ const formData = reactive({
 });
 
 const submitForm = async () => {
+  disabled.value = true;
   try {
+    successMessage.value = "";
+    errorMessage.value = "";
     await $fetch("/api/form", {
       method: "POST",
       body: formData,
     });
-    // Clear form or show success message
     summary.value = "";
     description.value = "";
     context.value = "";
-    // Maybe add a success message or redirect
+    successMessage.value =
+      "Issue submitted successfully! You can now submit another if you like.";
+
+    setTimeout(() => {
+      successMessage.value = "";
+      disabled.value = false;
+    }, 6000);
   } catch (error) {
-    // Handle error - maybe show an error message to user
+    errorMessage.value = "Failed to submit the issue. Please try again.";
     console.error("Failed to submit form:", error);
+
+    setTimeout(() => {
+      errorMessage.value = "";
+      disabled.value = false;
+    }, 6000);
   }
 };
 </script>

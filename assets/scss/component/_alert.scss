@@ -1,0 +1,15 @@
+.alert {
+  color: $inverse-colour;
+  display: grid;
+  width: 100%;
+  grid-auto-flow: column;
+  align-content: flex-start;
+  align-items: center;
+  justify-items: start;
+  gap: 1rem;
+  text-align: start;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  border-width: 0;
+  font-size: var(--step-0);
+}
