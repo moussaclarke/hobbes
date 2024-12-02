@@ -7,7 +7,7 @@ let incomingDigest:
   | undefined;
 
 export default function () {
-  const getCalendarHeaders = async () => {
+  const getCalendarHeaders = async (method: string) => {
     const config = useRuntimeConfig();
     await getDavClient();
 
@@ -31,7 +31,7 @@ export default function () {
       config.davPassword,
       {
         uri: config.davURI,
-        method: "REPORT",
+        method,
         counter: 1,
       },
     ).raw;
@@ -40,6 +40,31 @@ export default function () {
       Authorization: digest,
     };
   };
+
+  const sendTask = async(vtodo: string, filename:string) => {
+    const config = useRuntimeConfig();
+    const client = await getDavClient();
+
+    // Get calendar to add task to
+    const calendars = await client.fetchCalendars();
+    const calendar = calendars.find(
+      (calendar) => calendar.displayName === config.davCalName
+    );
+    if (!calendar) {
+      throw createError({
+        statusCode: 404,
+        message: "Calendar not found",
+      });
+    }
+    const res = await client.createCalendarObject({
+        calendar,
+        iCalString: vtodo,
+        filename,
+        headers: await getCalendarHeaders('PUT'),
+      });
+
+    return res;
+  }
 
   const getDavClient = async (): Promise<DAVClient> => {
     if (client) {
@@ -139,7 +164,7 @@ export default function () {
           },
         },
       ],
-      headers: await getCalendarHeaders(),
+      headers: await getCalendarHeaders('REPORT'),
     });
 
     return tasks;
@@ -147,5 +172,6 @@ export default function () {
 
   return {
     getTasks,
+    sendTask,
   };
 }
