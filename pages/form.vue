@@ -36,10 +36,18 @@
             id="issue-type"
             required
           >
-            <option value="bug">Bug</option>
-            <option value="change">Change Request</option>
-            <option value="feature">New Feature</option>
-            <option value="performance">Performance Issue</option>
+            <option value="bug">
+              Bug - Something isn't working as expected
+            </option>
+            <option value="change">
+              Change - Something could look, feel or work differently
+            </option>
+            <option value="feature">
+              Feature - I have an idea for something new
+            </option>
+            <option value="performance">
+              Performance - The system feels slow or unresponsive
+            </option>
           </select>
           <small>
             {{ issueTypeHelpText }} <br />If you're not sure about the issue

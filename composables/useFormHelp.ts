@@ -1,8 +1,8 @@
 const issueTypeHelpTextMap = {
-  bug: `"This isn't working correctly" (e.g. "Nothing happens when I click the submit button")`,
-  change: `"It works, but needs to be different" (e.g. "The title text needs to be larger")`,
-  feature: `"I need something new added" (e.g. "We need a new widget type", or "we need a new way to edit widgets.")`,
-  performance: `"Something is slow or unresponsive" (e.g. "The about page takes too long to load")`,
+  bug: `A bug: "This isn't working correctly" (e.g. "Nothing happens when I click the submit button")`,
+  change: `"A change request: "It works, but needs to be different" (e.g. "The title text needs to be larger")`,
+  feature: `"A feature request: "I need something new added" (e.g. "We need a new block type", or "we need a new way to edit products.")`,
+  performance: `"A performance issue: "Something is slow or unresponsive" (e.g. "The about page takes too long to load")`,
 };
 
 const descriptionHelpTextMap = {
@@ -19,7 +19,7 @@ const descriptionHelpTextMap = {
   feature: `
     What problem are you trying to solve?
     How do you handle this currently?
-    Who would use this feature and why?
+    Who would use or benefit from this feature and why?
     Any examples from other sites/apps?
   `,
   performance: `
@@ -42,7 +42,7 @@ const contextHelpTextMap = {
   `,
   feature: `
     Where would this feature fit within the current system?
-    If there is a specific page where you see this feature appearing, please provide a link to it.
+    If there is a specific page or pages where you see this feature appearing, please provide links.
   `,
   performance: `
     What device and browser are you using?
@@ -54,8 +54,8 @@ const contextHelpTextMap = {
 
 export function useFormHelp() {
   return {
-  issueTypeHelpTextMap,
-  descriptionHelpTextMap,
-  contextHelpTextMap,
+    issueTypeHelpTextMap,
+    descriptionHelpTextMap,
+    contextHelpTextMap,
   };
-};
+}
