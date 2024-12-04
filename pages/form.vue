@@ -186,7 +186,8 @@ const submitForm = async () => {
     successMessage.value = "";
     errorMessage.value = "";
 
-    const { userEmail } = useAuth();
+    const { userEmail, initAuth } = useAuth();
+    await initAuth();
     await $fetch("/api/form", {
       method: "POST",
       body: { ...formData, userEmail: userEmail.value },
