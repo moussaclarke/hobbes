@@ -11,11 +11,14 @@ export default defineNuxtConfig({
     davAuthMethod: process.env.DAV_AUTH_METHOD,
     davBase: process.env.DAV_BASE,
     davURI: process.env.DAV_URI,
+    emailProvider: process.env.EMAIL_PROVIDER,
+    emailApiKey: process.env.EMAIL_API_KEY,
+    notificationEmail: process.env.NOTIFICATION_EMAIL,
   },
   nitro: {
     prerender: {
       autoSubfolderIndex: false,
     },
     preset: "cloudflare_pages",
-  }
+  },
 });

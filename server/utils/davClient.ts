@@ -41,14 +41,14 @@ export default function () {
     };
   };
 
-  const sendTask = async(vtodo: string, filename:string) => {
+  const sendTask = async (vtodo: string, filename: string) => {
     const config = useRuntimeConfig();
     const client = await getDavClient();
 
     // Get calendar to add task to
     const calendars = await client.fetchCalendars();
     const calendar = calendars.find(
-      (calendar) => calendar.displayName === config.davCalName
+      (calendar) => calendar.displayName === config.davCalName,
     );
     if (!calendar) {
       throw createError({
@@ -57,14 +57,14 @@ export default function () {
       });
     }
     const res = await client.createCalendarObject({
-        calendar,
-        iCalString: vtodo,
-        filename,
-        headers: await getCalendarHeaders('PUT'),
-      });
+      calendar,
+      iCalString: vtodo,
+      filename,
+      headers: await getCalendarHeaders("PUT"),
+    });
 
     return res;
-  }
+  };
 
   const getDavClient = async (): Promise<DAVClient> => {
     if (client) {
@@ -164,7 +164,7 @@ export default function () {
           },
         },
       ],
-      headers: await getCalendarHeaders('REPORT'),
+      headers: await getCalendarHeaders("REPORT"),
     });
 
     return tasks;

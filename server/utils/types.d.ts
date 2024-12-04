@@ -18,3 +18,12 @@ declare type TaskStatus =
   | "IN-PROCESS"
   | "COMPLETED"
   | "CANCELLED";
+
+declare type EmailOptions = {
+  to: string;
+  subject: string;
+  text: string;
+  html?: string;
+};
+
+declare type EmailProvider = (options: EmailOptions) => Promise<void>;
