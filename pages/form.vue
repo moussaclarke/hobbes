@@ -189,7 +189,7 @@ const submitForm = async () => {
     const { userEmail } = useAuth();
     await $fetch("/api/form", {
       method: "POST",
-      body: { ...formData, userEmail },
+      body: { ...formData, userEmail: userEmail.value },
     });
     summary.value = "";
     description.value = "";
