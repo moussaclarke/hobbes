@@ -30,11 +30,9 @@ export default defineEventHandler(async (event) => {
 
   // Create task in iCalendar format
   const now = new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-  const vcalendar = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//tasks.moussaclarke.dev//EN",
-    "BEGIN:VTODO",
+
+  // Prepare the VTODO properties
+  const todoProperties = [
     `UID:${uid}`,
     `DTSTAMP:${now}`,
     `CREATED:${now}`,
@@ -45,6 +43,19 @@ export default defineEventHandler(async (event) => {
     "PERCENT-COMPLETE:0",
     `PRIORITY:${priorityMap[body.priority as keyof typeof priorityMap]}`,
     `CATEGORIES:Triage`,
+  ];
+
+  // Add ORGANIZER if email was provided in the body
+  if (body.userEmail) {
+    todoProperties.push(`ORGANIZER;CN=Task Creator:mailto:${body.userEmail}`);
+  }
+
+  const vcalendar = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//tasks.moussaclarke.dev//EN",
+    "BEGIN:VTODO",
+    ...todoProperties,
     "END:VTODO",
     "END:VCALENDAR",
   ].join("\r\n");

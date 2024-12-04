@@ -12,6 +12,7 @@
   "dependencies": {
     "@fontsource-variable/montserrat": "^5.1.0",
     "@mreal/digest-auth": "^2.0.0",
+    "jwt-decode": "^4.0.0",
     "nuxt": "^3.14.1592",
     "tsdav": "^2.1.2",
     "vue": "latest",

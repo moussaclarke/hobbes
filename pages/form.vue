@@ -136,6 +136,7 @@
 </template>
 <script setup lang="ts">
 import { useFormHelp } from "../composables/useFormHelp";
+import { useAuth } from "../composables/useAuth";
 
 const { issueTypeHelpTextMap, descriptionHelpTextMap, contextHelpTextMap } =
   useFormHelp();
@@ -184,9 +185,11 @@ const submitForm = async () => {
   try {
     successMessage.value = "";
     errorMessage.value = "";
+
+    const { userEmail } = useAuth();
     await $fetch("/api/form", {
       method: "POST",
-      body: formData,
+      body: { ...formData, userEmail },
     });
     summary.value = "";
     description.value = "";
