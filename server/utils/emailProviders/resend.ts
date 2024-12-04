@@ -7,7 +7,7 @@ export const createResendProvider = (apiKey: string): EmailProvider => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "your-verified-domain@example.com",
+        from: "no-reply@moussaclarke.dev",
         to,
         subject,
         text,
