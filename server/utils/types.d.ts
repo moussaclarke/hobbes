@@ -5,6 +5,7 @@ declare interface Task {
   summary: string;
   description: string;
   status?: TaskStatus;
+  organizer?: string;
   categories?: string[];
   created: Date;
   lastModified: Date;

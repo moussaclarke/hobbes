@@ -47,7 +47,9 @@ export default defineEventHandler(async (event) => {
 
   // Add ORGANIZER if email was provided in the body
   if (body.userEmail) {
-    todoProperties.push(`ORGANIZER;CN=Task Creator:mailto:${body.userEmail}`);
+    todoProperties.push(
+      `ORGANIZER;CN=${body.userEmail}:mailto:${body.userEmail}`,
+    );
   }
 
   const vcalendar = [
@@ -71,6 +73,7 @@ export default defineEventHandler(async (event) => {
       text: `
     A new task has been created:
 
+    From: ${body.userEmail}
     Type: ${body.issueType}
     Summary: ${body.summary}
     Priority: ${body.priority}
@@ -81,6 +84,7 @@ export default defineEventHandler(async (event) => {
           `.trim(),
       html: `
     <h2>New Task Created</h2>
+    <p><strong>From:</strong> ${body.userEmail}</p>
     <p><strong>Type:</strong> ${body.issueType}</p>
     <p><strong>Summary:</strong> ${body.summary}</p>
     <p><strong>Priority:</strong> ${body.priority}</p>
