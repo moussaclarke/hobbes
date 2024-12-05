@@ -47,7 +47,7 @@ export default defineEventHandler(async (event) => {
     `CATEGORIES:Triage`,
   ];
 
-  // Add ORGANIZER if email was provided in the body
+  // Add ORGANIZER if email is available
   if (email) {
     todoProperties.push(`ORGANIZER;CN=${email}:mailto:${email}`);
   }
