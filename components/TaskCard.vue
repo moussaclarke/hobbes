@@ -24,6 +24,9 @@
         <span class="x-small">
           Last modified: {{ taskWithDates.lastModified.toLocaleDateString() }}
         </span>
+        <span class="x-small" v-if="taskWithDates.organizer">
+          Opened by: {{ taskWithDates.organizer }}
+        </span>
       </div>
     </div>
   </div>
