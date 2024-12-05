@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
 
   const fullDescription = [
     body.description,
-    "", // Empty line between description and context
+    "\n", // Empty line between description and context
     "Context:",
     body.context,
   ]
