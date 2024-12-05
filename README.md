@@ -8,8 +8,10 @@ This is very simple project management web app to present a list of CalDAV tasks
 nr build
 
 # under the hood this runs
-nlx nuxi build && nr scripts/post-build.ts
+nlx nuxi build --dot-env .env.example && nr scripts/post-build.ts
 ```
+
+This uses `.env.example` on purpose, so that private variables are not leaked into the production build. See below for how to set up the env vars.
 
 The build process includes an automated post-build script that processes `dist/_worker.js/chunks/_/davClient.mjs` to find and replace `n.fetch` with `fetch`. This is because nitro overwrites all instances of  the `fetch` function in the `tsdav` library with a non-existent custom one during build for some unknown reason 🤷‍♂️
 
@@ -19,7 +21,9 @@ The build process includes an automated post-build script that processes `dist/_
 nlx wrangler pages deploy dist
 ```
 
-Env vars  currently need to be set up manually in the cloudflare dashboard. I've secured the app behind cloudflare access.
+Env vars  currently need to be set up manually in the cloudflare dashboard. They need to be prefixed with "NUXT_", otherwise they are the same as the local ones.
+
+I've secured the app behind cloudflare access. The app relies on Cloudflare Access to get email of the currently authenticated user.
 
 ## Todo
 

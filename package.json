@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nlx nuxi build && nr scripts/post-build.ts",
+    "build": "nlx nuxi build --dot-env .env.example && nr scripts/post-build.ts",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
