@@ -7,6 +7,7 @@
       {{ errorMessage }}
     </div>
     <h1>Open an issue</h1>
+    <h2 class="large primary">Project Name</h2>
     <div class="stack flow">
       <p class="medium wide">
         You can send me your feedback, bug reports and feature requests here.
