@@ -1,11 +1,14 @@
 import { jwtDecode } from "jwt-decode";
+import { H3Event } from "h3";
 
 interface CFTokenPayload {
   email: string;
   exp: number;
 }
 
-export default defineEventHandler((event) => {
+export const getEmailFromEvent = (event: H3Event) => {
+  // this gets the email from the cloudflare jwt token which is set in the request headers in production
+
   const token = getCookie(event, "CF_Authorization");
   if (token) {
     try {
@@ -17,4 +20,4 @@ export default defineEventHandler((event) => {
     }
   }
   return { email: null };
-});
+};

@@ -1,10 +1,12 @@
 import davClient from "~/server/utils/davClient";
 import { sendEmail } from "../utils/email";
+import { getEmailFromEvent } from "../utils/getEmailFromEvent";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const config = useRuntimeConfig();
   const client = davClient();
+  const { email } = getEmailFromEvent(event);
 
   // Convert priority to iCalendar format (1-9 scale)
   // 1-4: high, 5: medium, 6-9: low
@@ -46,10 +48,8 @@ export default defineEventHandler(async (event) => {
   ];
 
   // Add ORGANIZER if email was provided in the body
-  if (body.userEmail) {
-    todoProperties.push(
-      `ORGANIZER;CN=${body.userEmail}:mailto:${body.userEmail}`,
-    );
+  if (email) {
+    todoProperties.push(`ORGANIZER;CN=${email}:mailto:${email}`);
   }
 
   const vcalendar = [
@@ -73,7 +73,7 @@ export default defineEventHandler(async (event) => {
       text: `
     A new task has been created:
 
-    From: ${body.userEmail}
+    From: ${email ?? "unknown"}
     Type: ${body.issueType}
     Summary: ${body.summary}
     Priority: ${body.priority}
@@ -84,7 +84,7 @@ export default defineEventHandler(async (event) => {
           `.trim(),
       html: `
     <h2>New Task Created</h2>
-    <p><strong>From:</strong> ${body.userEmail}</p>
+    <p><strong>From:</strong> ${email ?? "unknown"}</p>
     <p><strong>Type:</strong> ${body.issueType}</p>
     <p><strong>Summary:</strong> ${body.summary}</p>
     <p><strong>Priority:</strong> ${body.priority}</p>
