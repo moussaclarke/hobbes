@@ -4,7 +4,7 @@
   >
     <div class="stack flow">
       <h2 class="medium primary">{{ props.task.summary }}</h2>
-      <p class="small prose">{{ props.task.description }}</p>
+      <p class="small prose" v-html="description"></p>
     </div>
     <div class="stack flow">
       <div class="cluster">
@@ -35,7 +35,12 @@
 const props = defineProps<{ task: Task }>();
 const taskWithDates = useTaskDates(props.task);
 
-const stastusFormatters = {
+const description = computed(() => {
+  if (!props.task.description) return "";
+  return props.task.description.replace(/\n/g, "<br>");
+});
+
+const statusFormatters = {
   COMPLETED: (task: Task) =>
     `Marked as completed on ${task.completed?.toLocaleDateString()}`,
   CANCELLED: () => "This task was cancelled",
@@ -48,7 +53,7 @@ const status = computed(() => {
     return "No status assigned";
   }
 
-  const formatter = stastusFormatters[props.task.status];
+  const formatter = statusFormatters[props.task.status];
   if (formatter) {
     return formatter(taskWithDates);
   }
