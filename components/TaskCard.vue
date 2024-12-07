@@ -4,7 +4,23 @@
   >
     <div class="task | stack flow">
       <h2 class="medium primary">{{ props.task.summary }}</h2>
-      <div class="description | small stack flow" v-html="description"></div>
+      <div
+        class="description | small stack flow"
+        v-html="description.content"
+      />
+      <div
+        v-if="description.comments.length"
+        class="comments | small stack flow"
+      >
+        <h3>Updates</h3>
+        <TaskComment
+          v-for="comment in description.comments"
+          :key="comment.id"
+          :user="comment.user"
+          :timestamp="comment.timestamp"
+          :content="comment.content"
+        />
+      </div>
     </div>
     <div class="stack flow">
       <div class="cluster">
@@ -38,7 +54,7 @@ const taskWithDates = useTaskDates(props.task);
 const { render } = useDescriptionRenderer();
 
 const description = computed(() => {
-  if (!props.task.description) return "";
+  if (!props.task.description) return { content: "", comments: [] };
   return render(props.task.description);
 });
 

@@ -8,32 +8,32 @@ const renderDescription = (markdown: string) => {
 
   if (updatesSectionIndex === -1) {
     // No Updates section found, just render the entire markdown text
-    return micromark(markdown);
+    return {
+      content: micromark(markdown),
+      comments: [],
+    };
   }
 
   const beforeUpdates = sections.slice(0, updatesSectionIndex).join("## ");
   const updatesSection = sections[updatesSectionIndex];
   const afterUpdates = sections.slice(updatesSectionIndex + 1).join("## ");
 
-  const renderedBeforeUpdates = micromark(beforeUpdates);
+  const content = disallowBigHeadings(
+    micromark([beforeUpdates, afterUpdates].join("\n")),
+  );
   const comments = parseComments(updatesSection);
-  const renderedAfterUpdates = micromark(afterUpdates);
 
-  const renderedComments = comments
-    .map((comment) => {
-      const renderedCommentContent = micromark(comment.text);
-      return `<div class="comment | stack flow"><span class="user">@${comment.user}</span> <span class="timestamp">${comment.timestamp}</span> <div class="content | stack flow">${renderedCommentContent}</div></div>`;
-    })
-    .join("");
-
-  return `${renderedBeforeUpdates}<h2>Updates</h2>${renderedComments}${renderedAfterUpdates}`;
+  return {
+    content,
+    comments,
+  };
 };
 
 const parseComments = (
   markdown: string,
-): { user: string; timestamp: string; text: string }[] => {
+): { user: string; timestamp: string; content: string; id: string }[] => {
   // Custom logic to parse the ## Updates section into individual comments with metadata
-  // first we need to split the into comments - each comment block starts with @username
+  // first we need to split into comments - each comment block starts with @username
   const comments = markdown.split(/^@/m);
 
   if (comments.length === 1) {
@@ -45,31 +45,34 @@ const parseComments = (
     const lines = comment.trim().split("\n");
     const firstLine = lines[0];
     const [user, timestamp] = firstLine.split(/\s+/, 2);
-    const text = lines.slice(1).join("\n").trim();
+    const content = disallowBigHeadings(
+      micromark(lines.slice(1).join("\n").trim()),
+    );
 
     return {
       user,
       timestamp: timestamp ? timestamp.replace(/[\[\]]/g, "") : "",
-      text,
+      content,
+      id: crypto.randomUUID(),
     };
   });
 
   return parsedComments;
 };
 
+const disallowBigHeadings = (markdown: string) => {
+  // disallow h1 and h2
+  return markdown
+    .replace(/<h1>/g, "<h3>")
+    .replace(/<\/h1>/g, "</h3>")
+    .replace(/<h2>/g, "<h3>")
+    .replace(/<\/h2>/g, "</h3>");
+};
+
 export function useDescriptionRenderer() {
-  // TODO: add our messages extension
-  // we could add GFM in future, but for now just commonmark
   return {
     render: (markdown: string) => {
-      const result = renderDescription(markdown)
-        // disallow h1 and h2
-        .replace(/<h1>/g, "<h3>")
-        .replace(/<\/h1>/g, "</h3>")
-        .replace(/<h2>/g, "<h3>")
-        .replace(/<\/h2>/g, "</h3>");
-
-      return result;
+      return renderDescription(markdown);
     },
   };
 }

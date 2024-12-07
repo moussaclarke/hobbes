@@ -1,4 +1,5 @@
-.task .description {
+.task .description,
+.task .comments {
   // headings all smaller than the default
   @for $i from 1 through 6 {
     h#{$i} {
