@@ -32,14 +32,14 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useMarkdown } from "~/composables/useMarkdown";
+import { useDescriptionRenderer } from "~/composables/useDescriptionRenderer";
 const props = defineProps<{ task: Task }>();
 const taskWithDates = useTaskDates(props.task);
-const { compileMarkdown } = useMarkdown();
+const { render } = useDescriptionRenderer();
 
 const description = computed(() => {
   if (!props.task.description) return "";
-  return compileMarkdown(props.task.description);
+  return render(props.task.description);
 });
 
 const statusFormatters = {

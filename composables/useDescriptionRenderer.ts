@@ -1,10 +1,10 @@
 import { micromark } from "micromark";
 
-export function useMarkdown() {
+export function useDescriptionRenderer() {
   // TODO: add our messages extension
   // we could add GFM in future, but for now just commonmark
   return {
-    compileMarkdown: (markdown: string) => {
+    render: (markdown: string) => {
       const result = micromark(markdown)
         // disallow h1
         .replace(/<h1>/g, "<h2>")
