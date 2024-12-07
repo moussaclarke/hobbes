@@ -9,7 +9,7 @@ const renderDescription = (markdown: string) => {
   if (updatesSectionIndex === -1) {
     // No Updates section found, just render the entire markdown text
     return {
-      content: micromark(markdown),
+      content: disallowBigHeadings(micromark(markdown)),
       comments: [],
     };
   }
