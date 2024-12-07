@@ -1,0 +1,9 @@
+.task .description {
+  // headings all smaller than the default
+  @for $i from 1 through 6 {
+    h#{$i} {
+      font-size: var(--step-#{4-$i});
+      line-height: 1.25 + ($i - 1) * 0.05;
+    }
+  }
+}

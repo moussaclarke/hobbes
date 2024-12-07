@@ -2,9 +2,9 @@
   <div
     class="stack flow justify-between box border border-solid border-primary rounded"
   >
-    <div class="stack flow">
+    <div class="task | stack flow">
       <h2 class="medium primary">{{ props.task.summary }}</h2>
-      <div class="small stack flow" v-html="description"></div>
+      <div class="description | small stack flow" v-html="description"></div>
     </div>
     <div class="stack flow">
       <div class="cluster">
