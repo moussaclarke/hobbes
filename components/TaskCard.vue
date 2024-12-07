@@ -4,7 +4,7 @@
   >
     <div class="stack flow">
       <h2 class="medium primary">{{ props.task.summary }}</h2>
-      <p class="small prose" v-html="description"></p>
+      <div class="small stack flow" v-html="description"></div>
     </div>
     <div class="stack flow">
       <div class="cluster">
@@ -32,12 +32,14 @@
   </div>
 </template>
 <script setup lang="ts">
+import { useMarkdown } from "~/composables/useMarkdown";
 const props = defineProps<{ task: Task }>();
 const taskWithDates = useTaskDates(props.task);
+const { compileMarkdown } = useMarkdown();
 
 const description = computed(() => {
   if (!props.task.description) return "";
-  return props.task.description.replace(/\n/g, "<br>");
+  return compileMarkdown(props.task.description);
 });
 
 const statusFormatters = {
