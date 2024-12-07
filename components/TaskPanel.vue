@@ -1,7 +1,7 @@
 <template>
-  <div class="stack flow box modal">
+  <div class="panel | stack flow box">
     <div class="flex justify-end">
-      <span class="pointer" @click="$emit('closeFull')">X</span>
+      <span class="pointer" @click="$emit('closePanel')">X</span>
     </div>
     <div class="task | stack flow">
       <h2 class="medium primary">{{ props.task?.summary }}</h2>

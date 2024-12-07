@@ -37,7 +37,11 @@
       <div v-if="filteredData.length === 0" class="box">
         <p>No tasks found</p>
       </div>
-      <TaskFull v-if="showingFull" :task="fullTask" @closeFull="closeFull" />
+      <TaskPanel
+        v-if="showingPanel"
+        :task="panelTask"
+        @closePanel="closePanel"
+      />
     </div>
   </div>
 </template>
@@ -53,15 +57,15 @@ const categories = computed(() => [
   ),
 ]);
 
-const showingFull = ref(false);
-const fullTask = ref<Task | null>(null);
+const showingPanel = ref(false);
+const panelTask = ref<Task | null>(null);
 const openFull = (task: Task) => {
-  showingFull.value = true;
-  fullTask.value = task;
+  showingPanel.value = true;
+  panelTask.value = task;
 };
-const closeFull = () => {
-  showingFull.value = false;
-  fullTask.value = null;
+const closePanel = () => {
+  showingPanel.value = false;
+  panelTask.value = null;
 };
 const categoryFilter: Ref<string | null> = ref(null);
 const filteredData = computed(() => {
