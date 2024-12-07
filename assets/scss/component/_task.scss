@@ -7,4 +7,20 @@
       line-height: 1.25 + ($i - 1) * 0.05;
     }
   }
+
+  .user {
+    background-color: $muted-colour;
+    color: $inverse-colour;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-family: $heading-font;
+    font-size: var(--step--2);
+  }
+
+  .comment {
+    background-color: $semi-transparent-colour;
+    color: $inverse-colour;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+  }
 }

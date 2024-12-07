@@ -1,9 +1,11 @@
 <template>
-  <div class="comment">
-    <span class="user"> @{{ user }} </span>
-    <span class="timestamp">
-      {{ timestamp }}
-    </span>
+  <div class="comment | stack flow">
+    <div class="cluster">
+      <span class="user"> 👤 @{{ user }} </span>
+      <span class="timestamp">
+        {{ timestamp }}
+      </span>
+    </div>
     <div class="content | stack flow" v-html="content" />
   </div>
 </template>
