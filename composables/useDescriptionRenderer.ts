@@ -10,6 +10,7 @@ const renderDescription = (markdown: string) => {
     // No Updates section found, just render the entire markdown text
     return {
       content: disallowBigHeadings(micromark(markdown)),
+      truncatedContent: disallowBigHeadings(micromark(truncate(markdown))),
       comments: [],
     };
   }
@@ -21,12 +22,21 @@ const renderDescription = (markdown: string) => {
   const content = disallowBigHeadings(
     micromark([beforeUpdates, afterUpdates].join("\n")),
   );
+
+  const truncatedContent = disallowBigHeadings(
+    micromark(truncate([beforeUpdates, updatesSection.slice].join("\n"))),
+  );
   const comments = parseComments(updatesSection);
 
   return {
     content,
+    truncatedContent,
     comments,
   };
+};
+
+const truncate = (text: string) => {
+  return text.length > 100 ? text.slice(0, 100) + "..." : text;
 };
 
 const parseComments = (

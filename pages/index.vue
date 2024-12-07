@@ -28,10 +28,16 @@
       <CategoryTag key="All" category="All" @click="categoryFilter = null" />
     </div>
     <div class="grid constrained">
-      <TaskCard v-for="task in filteredData" :key="task.id" :task="task" />
+      <TaskCard
+        @openFull="openFull"
+        v-for="task in filteredData"
+        :key="task.id"
+        :task="task"
+      />
       <div v-if="filteredData.length === 0" class="box">
         <p>No tasks found</p>
       </div>
+      <TaskFull v-if="showingFull" :task="fullTask" @closeFull="closeFull" />
     </div>
   </div>
 </template>
@@ -46,6 +52,17 @@ const categories = computed(() => [
     }, []),
   ),
 ]);
+
+const showingFull = ref(false);
+const fullTask = ref<Task | null>(null);
+const openFull = (task: Task) => {
+  showingFull.value = true;
+  fullTask.value = task;
+};
+const closeFull = () => {
+  showingFull.value = false;
+  fullTask.value = null;
+};
 const categoryFilter: Ref<string | null> = ref(null);
 const filteredData = computed(() => {
   let filtered = data.value?.data;

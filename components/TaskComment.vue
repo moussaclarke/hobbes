@@ -6,7 +6,7 @@
         {{ timestamp }}
       </span>
     </div>
-    <div class="content | stack flow" v-html="content" />
+    <div class="content | prose stack flow" v-html="content" />
   </div>
 </template>
 <script setup lang="ts">

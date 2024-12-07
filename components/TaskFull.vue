@@ -1,19 +1,32 @@
 <template>
-  <div
-    class="stack flow justify-between box border border-solid border-primary rounded pointer"
-    @click="$emit('openFull', props.task)"
-  >
+  <div class="stack flow box modal">
+    <div class="flex justify-end">
+      <span class="pointer" @click="$emit('closeFull')">X</span>
+    </div>
     <div class="task | stack flow">
-      <h2 class="medium primary">{{ props.task.summary }}</h2>
+      <h2 class="medium primary">{{ props.task?.summary }}</h2>
       <div
         class="description | small stack flow"
-        v-html="description.truncatedContent"
+        v-html="description.content"
       />
+      <div
+        v-if="description.comments.length"
+        class="comments | small stack flow"
+      >
+        <h3>Updates</h3>
+        <TaskComment
+          v-for="comment in description.comments"
+          :key="comment.id"
+          :user="comment.user"
+          :timestamp="comment.timestamp"
+          :content="comment.content"
+        />
+      </div>
     </div>
     <div class="stack flow">
       <div class="cluster">
         <CategoryTag
-          v-for="category in props.task.categories"
+          v-for="category in props.task?.categories"
           :key="category"
           :category="category"
         />
@@ -23,13 +36,13 @@
           {{ status }}
         </strong>
         <span class="x-small">
-          Created: {{ taskWithDates.created.toLocaleDateString() }}
+          Created: {{ taskWithDates?.created.toLocaleDateString() }}
         </span>
         <span class="x-small">
-          Last modified: {{ taskWithDates.lastModified.toLocaleDateString() }}
+          Last modified: {{ taskWithDates?.lastModified.toLocaleDateString() }}
         </span>
-        <span class="x-small" v-if="taskWithDates.organizer">
-          Opened by: {{ taskWithDates.organizer }}
+        <span class="x-small" v-if="taskWithDates?.organizer">
+          Opened by: {{ taskWithDates?.organizer }}
         </span>
       </div>
     </div>
@@ -37,13 +50,12 @@
 </template>
 <script setup lang="ts">
 import { useDescriptionRenderer } from "~/composables/useDescriptionRenderer";
-const props = defineProps<{ task: Task }>();
-const taskWithDates = useTaskDates(props.task);
+const props = defineProps<{ task: Task | null }>();
+const taskWithDates = computed(() => props.task && useTaskDates(props.task));
 const { render } = useDescriptionRenderer();
 
 const description = computed(() => {
-  if (!props.task.description)
-    return { content: "", truncatedContent: "", comments: [] };
+  if (!props.task?.description) return { content: "", comments: [] };
   return render(props.task.description);
 });
 
@@ -56,13 +68,13 @@ const statusFormatters = {
 };
 
 const status = computed(() => {
-  if (!props.task.status) {
+  if (!props.task?.status) {
     return "No status assigned";
   }
 
   const formatter = statusFormatters[props.task.status];
-  if (formatter) {
-    return formatter(taskWithDates);
+  if (formatter && taskWithDates.value) {
+    return formatter(taskWithDates.value);
   }
   return props.task.status;
 });
