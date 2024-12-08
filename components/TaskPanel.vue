@@ -9,10 +9,7 @@
         class="description | small stack flow"
         v-html="description.content"
       />
-      <div
-        v-if="description.comments.length"
-        class="comments | small stack flow"
-      >
+      <div class="comments | small stack flow">
         <h3>Updates</h3>
         <TaskComment
           v-for="comment in description.comments"
@@ -21,6 +18,7 @@
           :timestamp="comment.timestamp"
           :content="comment.content"
         />
+        <CommentInput :task="props.task" />
       </div>
     </div>
     <TaskMeta :task="props.task" />
