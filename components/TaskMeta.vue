@@ -2,7 +2,7 @@
   <div class="stack flow">
     <div class="cluster">
       <CategoryTag
-        v-for="category in props.task.categories"
+        v-for="category in props.task?.categories"
         :key="category"
         :category="category"
       />
@@ -12,20 +12,20 @@
         {{ status }}
       </strong>
       <span class="x-small">
-        Created: {{ taskWithDates.created.toLocaleDateString() }}
+        Created: {{ taskWithDates?.created.toLocaleDateString() }}
       </span>
       <span class="x-small">
-        Last modified: {{ taskWithDates.lastModified.toLocaleDateString() }}
+        Last modified: {{ taskWithDates?.lastModified.toLocaleDateString() }}
       </span>
-      <span class="x-small" v-if="taskWithDates.organizer">
-        Opened by: {{ taskWithDates.organizer }}
+      <span class="x-small" v-if="taskWithDates?.organizer">
+        Opened by: {{ taskWithDates?.organizer }}
       </span>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-const props = defineProps<{ task: Task }>();
-const taskWithDates = useTaskDates(props.task);
+const props = defineProps<{ task: Task | null }>();
+const taskWithDates = props.task && useTaskDates(props.task);
 
 const statusFormatters = {
   COMPLETED: (task: Task) =>
@@ -36,12 +36,12 @@ const statusFormatters = {
 };
 
 const status = computed(() => {
-  if (!props.task.status) {
+  if (!props.task?.status) {
     return "No status assigned";
   }
 
   const formatter = statusFormatters[props.task.status];
-  if (formatter) {
+  if (formatter && taskWithDates) {
     return formatter(taskWithDates);
   }
   return props.task.status;
