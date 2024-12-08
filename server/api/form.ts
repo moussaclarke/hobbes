@@ -19,9 +19,10 @@ export default defineEventHandler(async (event) => {
   const formattedSummary = `${body.issueType.charAt(0).toUpperCase() + body.issueType.slice(1)}: ${body.summary}`;
 
   const fullDescription = [
+    "## Description",
     body.description,
     "\n", // Empty line between description and context
-    "Context:",
+    "## Context",
     body.context,
   ]
     .filter(Boolean)
