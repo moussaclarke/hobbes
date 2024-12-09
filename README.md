@@ -2,6 +2,8 @@
 
 A solo dev project management web app, based on CalDAV VTODO.
 
+## Motivation
+
 The use case is for a solo dev to share project status with clients and to receive feedback and issues from them in one place.
 
 I was happily using TickTick, and while it's got some really nice UI features, the API is under-powered and wouldn't allow me to build the specific integration I needed. I also generally prefer using Open Source software and open standards when I can - which led me down the CalDAV rabbit hole...
@@ -9,18 +11,21 @@ I was happily using TickTick, and while it's got some really nice UI features, t
 ## Features
 
 The main goals and features are:
+
 - to show a list of tasks and their current status. These are then filterable by status and category.
 - to show a more detailed view of a task when you click on it.
 - to implement a simple custom commenting system for tasks, which can still be used in external CalDAV clients.
 - to allow clients to add new issues for triage.
 - to be essentially free to host on Cloudflare pages/workers.
 
-I do the actual task management and editing via Thunderbird on my desktop, and Tasks.org on my phone. I run a [baikal](https://sabre.io/baikal/) server, which is what Hobbes is currently deployed against in my setup, but it should work with other compliant CalDAV servers, like FastMail, Nextcloud or whatever.
+I do the actual task management and editing via [Thunderbird](https://www.thunderbird.net/) on my desktop, and [Tasks.org](https://tasks.org/) on my phone. I run a [baikal](https://sabre.io/baikal/) server, which is what Hobbes is currently deployed against in my setup, but it should work with other compliant CalDAV servers, like FastMail, Nextcloud or whatever.
 
 You can think of Hobbes as offering an _extremely_ lightweight subset of monday.com or Github Issues features on top of CalDAV.
 
 ### Non-Goals
+
 Some non-goals are:
+
 - to be a full-featured CalDAV task client/editor. Editing tasks happens in Thunderbird, Tasks.org or whatever you prefer.
 - to be a full-featured project management tool - this isn't trying to be a monday.com or Jira replacement. Try [plane](https://plane.so) if you want a full fat Open Source project management tool.
 - to support non-compliant big tech CalDAV implementations like Yahoo, Apple or Google. Ain't nobody got time for that - CalDAV is complex enough as it is.
