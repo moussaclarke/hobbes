@@ -97,6 +97,7 @@ export default defineEventHandler(async (event) => {
     return {
       success: true,
       message: "Comment added successfully",
+      data: parseTask(task),
     };
   } catch (error) {
     throw createError({
