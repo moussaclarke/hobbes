@@ -141,6 +141,10 @@ import { useFormHelp } from "../composables/useFormHelp";
 const { issueTypeHelpTextMap, descriptionHelpTextMap, contextHelpTextMap } =
   useFormHelp();
 
+useHead({
+  title: "Projects | Submit an issue",
+});
+
 const issueType = ref("bug");
 const priority = ref("low");
 const summary = ref("");
