@@ -24,7 +24,7 @@ const renderDescription = (markdown: string) => {
   );
 
   const truncatedContent = disallowBigHeadings(
-    micromark(truncate([beforeUpdates, updatesSection.slice].join("\n"))),
+    micromark(truncate([beforeUpdates, updatesSection].join("\n"))),
   );
   const comments = parseComments(updatesSection);
 
@@ -54,7 +54,7 @@ const parseComments = (
   const parsedComments = comments.slice(1).map((comment) => {
     const lines = comment.trim().split("\n");
     const firstLine = lines[0];
-    const [user, timestamp] = firstLine.split(/\s+/, 2);
+    const [user, timestamp] = firstLine.split(/\[+/, 2);
     const content = disallowBigHeadings(
       micromark(lines.slice(1).join("\n").trim()),
     );

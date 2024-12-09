@@ -1,4 +1,9 @@
-import { createDAVClient, DAVClient, getBasicAuthHeaders } from "tsdav";
+import {
+  createDAVClient,
+  DAVClient,
+  DAVObject,
+  getBasicAuthHeaders,
+} from "tsdav";
 import { ClientDigestAuth } from "@mreal/digest-auth";
 
 let client: any | undefined;
@@ -41,7 +46,7 @@ export default function () {
     };
   };
 
-  const sendTask = async (vtodo: string, filename: string) => {
+  const createTask = async (vtodo: string, filename: string) => {
     const config = useRuntimeConfig();
     const client = await getDavClient();
 
@@ -60,6 +65,17 @@ export default function () {
       calendar,
       iCalString: vtodo,
       filename,
+      headers: await getCalendarHeaders("PUT"),
+    });
+
+    return res;
+  };
+
+  const updateTask = async (todoObject: DAVObject) => {
+    const client = await getDavClient();
+
+    const res = await client.updateCalendarObject({
+      calendarObject: todoObject,
       headers: await getCalendarHeaders("PUT"),
     });
 
@@ -138,19 +154,27 @@ export default function () {
     });
   };
 
-  const getTasks = async () => {
+  const getCalendar = async () => {
     const client = await getDavClient();
     const config = useRuntimeConfig();
     const calendars = await client.fetchCalendars();
     const calendar = calendars.find(
       (calendar) => calendar.displayName === config.davCalName,
     );
+
     if (!calendar) {
       throw createError({
         statusCode: 404,
         message: "Calendar not found",
       });
     }
+
+    return calendar;
+  };
+
+  const getTasks = async () => {
+    const client = await getDavClient();
+    const calendar = await getCalendar();
 
     const tasks = await client.fetchCalendarObjects({
       calendar,
@@ -170,8 +194,43 @@ export default function () {
     return tasks;
   };
 
+  const getTask = async (uid: string) => {
+    const client = await getDavClient();
+    const calendar = await getCalendar();
+
+    const tasks = await client.fetchCalendarObjects({
+      calendar,
+      filters: [
+        {
+          "comp-filter": {
+            _attributes: { name: "VCALENDAR" },
+            "comp-filter": {
+              _attributes: { name: "VTODO" },
+              "prop-filter": {
+                _attributes: { name: "UID" },
+                "text-match": uid,
+              },
+            },
+          },
+        },
+      ],
+      headers: await getCalendarHeaders("REPORT"),
+    });
+
+    if (tasks.length === 0) {
+      throw createError({
+        statusCode: 404,
+        message: "Task not found",
+      });
+    }
+
+    return tasks[0];
+  };
+
   return {
     getTasks,
-    sendTask,
+    createTask,
+    getTask,
+    updateTask,
   };
 }

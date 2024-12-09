@@ -65,7 +65,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     // Create the task on the CalDAV server
-    await client.sendTask(vcalendar, `${uid}.ics`);
+    await client.createTask(vcalendar, `${uid}.ics`);
 
     // Send email notification
     await sendEmail({
