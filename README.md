@@ -1,6 +1,41 @@
-# Project Tooling Web App
+# Hobbes
 
-This is very simple project management web app to present a list of CalDAV tasks and their current status. These are then filterable by status and category. The use case is for a solo dev (me) to share project status with clients. I manage the actual tasks via Thunderbird on my desktop, and Tasks.org on my phone. I run a baikal server which is what this is tested against, but it might work with other CalDAV servers.
+A solo dev project management web app, based on CalDAV VTODO.
+
+The use case is for a solo dev to share project status with clients and to receive feedback and issues from them in one place.
+
+I was happily using TickTick, and while it's got some really nice UI features, the API is under-powered and wouldn't allow me to build the specific integration I needed. I also generally prefer using Open Source software and open standards when I can - which led me down the CalDAV rabbit hole...
+
+## Features
+
+The main goals and features are:
+- to show a list of tasks and their current status. These are then filterable by status and category.
+- to show a more detailed view of a task when you click on it.
+- to implement a simple custom commenting system for tasks, which can still be used in external CalDAV clients.
+- to allow clients to add new issues for triage.
+- to be essentially free to host on Cloudflare pages/workers.
+
+I do the actual task management and editing via Thunderbird on my desktop, and Tasks.org on my phone. I run a [baikal](https://sabre.io/baikal/) server, which is what Hobbes is currently deployed against in my setup, but it should work with other compliant CalDAV servers, like FastMail, Nextcloud or whatever.
+
+You can think of Hobbes as offering an _extremely_ lightweight subset of monday.com or Github Issues features on top of CalDAV.
+
+### Non-Goals
+Some non-goals are:
+- to be a full-featured CalDAV task client/editor. Editing tasks happens in Thunderbird, Tasks.org or whatever you prefer.
+- to be a full-featured project management tool - this isn't trying to be a monday.com or Jira replacement. Try [plane](https://plane.so) if you want a full fat Open Source project management tool.
+- to support non-compliant big tech CalDAV implementations like Yahoo, Apple or Google. Ain't nobody got time for that - CalDAV is complex enough as it is.
+- to need any kind of local database - all task data should live on the remote CalDAV server.
+
+## Setup
+
+Before you get started, you'll need a working CalDAV server. I use [baikal](https://sabre.io/baikal/) for this.
+
+```bash
+cp .env.example .env
+# fill in .env
+ni install
+nr dev
+```
 
 ## Build
 
@@ -21,15 +56,20 @@ The build process includes an automated post-build script that processes `dist/_
 nlx wrangler pages deploy dist
 ```
 
-Env vars  currently need to be set up manually in the cloudflare dashboard. They need to be prefixed with "NUXT_", otherwise they are the same as the local ones.
+The env vars will need to be set up manually in the cloudflare dashboard. They keys need to be prefixed with "NUXT_" for them to be picked up as runtime env vars.
 
-I've secured the app behind cloudflare access. The app relies on Cloudflare Access to get email of the currently authenticated user.
+The app also needs to be secured behind Cloudflare Access - it relies on cookie headers set by Cloudflare Access to get the email of the currently authenticated user.
 
 ## Todo
 
-- Client ticket submission form - for inbox/triage
-- Pagination (don't load everything at once, will be better for performance)
-- Animations/transitions
-- Client-friendly UX/shortcuts (e.g view current sprint, view current backlog - while this is all achievable with existing filters, we could probably make it slightly more straightforward)
-- Support multiple project calendars
-- Support multiple clients - check the authenticated user via [this plugin](https://developers.cloudflare.com/pages/functions/plugins/cloudflare-access/) and implement project level permissions.
+- Support multiple projects
+- Support multiple client user sets and project permissions
+- UI/UX improvements
+- Refactor, particularly CalDAV object parsing/handling
+- Performance improvements
+- Test all the things
+- Additional documentation, particularly the comment syntax
+
+## License
+
+MIT
