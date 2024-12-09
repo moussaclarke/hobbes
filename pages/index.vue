@@ -1,7 +1,10 @@
 <template>
   <div class="box stack flow">
     <div class="stack">
-      <h1>{{ statusFilter }} Tasks</h1>
+      <div class="cluster | justify-between">
+        <h1>{{ statusFilter }} Tasks</h1>
+        <SearchBox />
+      </div>
       <h2 class="large primary">
         {{ categoryFilter ? `${categoryFilter}` : "All categories" }}
       </h2>

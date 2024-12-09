@@ -1,0 +1,16 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  min-height: 55vh;
+  min-width: 50vw;
+  max-width: 100%;
+  overflow-y: hidden;
+  background-color: $inverse-colour;
+  z-index: 2;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+
+  border-radius: 0.5rem;
+  padding: 1rem;
+}

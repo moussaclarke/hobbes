@@ -2,6 +2,7 @@ $primary-colour: #dc8a78;
 $secondary-colour: #8839ef;
 $vibrant-colour: #dd7878;
 $muted-colour: #6c6f85;
+$muted-light-colour: #c7c9d9;
 $neutral-colour: #4c4f69;
 $inverse-colour: #eff1f5;
 $transparent-colour: rgba(0, 0, 0, 0);
@@ -17,6 +18,7 @@ $colours: (
   secondary: $secondary-colour,
   vibrant: $vibrant-colour,
   muted: $muted-colour,
+  "muted-light": $muted-light-colour,
   neutral: $neutral-colour,
   inverse: $inverse-colour,
   "transparent": $transparent-colour,
