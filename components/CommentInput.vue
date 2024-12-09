@@ -34,6 +34,7 @@ const addComment = async () => {
     const taskWithDates = useTaskDates(res.data);
     taskData.value.splice(index, 1, taskWithDates);
     openFull(taskWithDates);
+    comment.value = "";
   }
   disabled.value = false;
 };
