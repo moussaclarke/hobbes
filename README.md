@@ -30,6 +30,7 @@ Some non-goals are:
 - to be a full-featured project management tool - this isn't trying to be a monday.com or Jira replacement. Try [plane](https://plane.so) if you want a full fat Open Source project management tool.
 - to support non-compliant big tech CalDAV implementations like Yahoo, Apple or Google. Ain't nobody got time for that - CalDAV is complex enough as it is.
 - to need any kind of local database - all task data should live on the remote CalDAV server.
+- to support alternative task UI paradigms/views like Kanban boards or GANTT charts. Just a simple grid/list of tasks.
 
 ## Setup
 
