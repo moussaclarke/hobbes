@@ -8,15 +8,17 @@
         required
       />
     </div>
-    <button class="button">Add Comment</button>
+    <button :disabled="disabled" class="button">Add Comment</button>
   </form>
 </template>
 <script setup lang="ts">
 const props = defineProps<{ task: Task }>();
 
 const comment = ref("");
+const disabled = ref(false);
 
 const addComment = async () => {
+  disabled.value = true;
   const res = await $fetch("/api/comment", {
     method: "POST",
     body: {
@@ -24,7 +26,7 @@ const addComment = async () => {
       content: comment.value,
     },
   });
-
+  disabled.value = false;
   console.log(res);
 };
 </script>
