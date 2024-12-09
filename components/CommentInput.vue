@@ -17,6 +17,7 @@ const props = defineProps<{ task: Task }>();
 const comment = ref("");
 const disabled = ref(false);
 const taskData = inject("taskData") as Ref<Task[]>;
+const openFull = inject("openFull") as (task: Task) => void;
 
 const addComment = async () => {
   disabled.value = true;
@@ -32,6 +33,7 @@ const addComment = async () => {
   if (index !== -1 && res.success) {
     const taskWithDates = useTaskDates(res.data);
     taskData.value.splice(index, 1, taskWithDates);
+    openFull(taskWithDates);
   }
   disabled.value = false;
 };

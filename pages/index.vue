@@ -50,6 +50,7 @@
 const { data } = await useFetch("/api/tasks");
 const taskData = ref(data.value?.data);
 provide("taskData", taskData);
+
 const statusFilter: Ref<"All" | "Todo" | "Done"> = ref("Todo");
 const categories = computed(() => [
   ...new Set(
@@ -65,10 +66,12 @@ const openFull = (task: Task) => {
   showingPanel.value = true;
   panelTask.value = task;
 };
+provide("openFull", openFull);
 const closePanel = () => {
   showingPanel.value = false;
   panelTask.value = null;
 };
+
 const categoryFilter: Ref<string | null> = ref(null);
 const filteredData = computed(() => {
   let filtered = taskData.value || [];
