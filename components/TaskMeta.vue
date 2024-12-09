@@ -25,7 +25,7 @@
 </template>
 <script setup lang="ts">
 const props = defineProps<{ task: Task | null }>();
-const taskWithDates = props.task && useTaskDates(props.task);
+const taskWithDates = computed(() => props.task && useTaskDates(props.task));
 
 const statusFormatters = {
   COMPLETED: (task: Task) =>
@@ -41,8 +41,8 @@ const status = computed(() => {
   }
 
   const formatter = statusFormatters[props.task.status];
-  if (formatter && taskWithDates) {
-    return formatter(taskWithDates);
+  if (formatter && taskWithDates.value) {
+    return formatter(taskWithDates.value);
   }
   return props.task.status;
 });
