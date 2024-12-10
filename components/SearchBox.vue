@@ -10,7 +10,7 @@
         placeholder="Search all tasks..."
       />
     </div>
-    <ul class="stack flow list-none" v-show="focussed">
+    <ul class="stack flow list-none p-0" v-show="focussed">
       <li
         @click="openResult(result.item)"
         class="small pointer px-2 py-[0.5em] my-0 cluster justify-between"
