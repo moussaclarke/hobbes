@@ -2,12 +2,14 @@
   <div class="box stack flow">
     <div class="stack">
       <div class="cluster | justify-between">
-        <h1>{{ statusFilter }} Tasks</h1>
+        <div class="stack">
+          <h1>{{ statusFilter }} Tasks</h1>
+          <h2 class="large primary">
+            {{ categoryFilter ? `${categoryFilter}` : "All categories" }}
+          </h2>
+        </div>
         <SearchBox />
       </div>
-      <h2 class="large primary">
-        {{ categoryFilter ? `${categoryFilter}` : "All categories" }}
-      </h2>
     </div>
     <div class="cluster">
       <button class="button secondary small" @click="statusFilter = 'Todo'">
