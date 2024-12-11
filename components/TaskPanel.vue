@@ -28,9 +28,25 @@
 import { useDescriptionRenderer } from "~/composables/useDescriptionRenderer";
 const props = defineProps<{ task: Task | null }>();
 const { render } = useDescriptionRenderer();
+const emit = defineEmits(["closePanel"]);
 
 const description = computed(() => {
   if (!props.task?.description) return { content: "", comments: [] };
   return render(props.task.description);
+});
+
+const escapePanel = (e: KeyboardEvent) => {
+  if (e.key === "Escape") {
+    e.preventDefault();
+    emit("closePanel");
+  }
+};
+
+onMounted(() => {
+  document.addEventListener("keydown", escapePanel);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("keydown", escapePanel);
 });
 </script>

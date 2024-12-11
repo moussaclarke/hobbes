@@ -2,6 +2,8 @@
   <div
     class="stack flow justify-between box border border-solid border-primary rounded pointer"
     @click="$emit('openFull', props.task)"
+    tabindex="0"
+    @keydown.enter="$emit('openFull', props.task)"
   >
     <div class="task | stack flow">
       <h2 class="medium primary">{{ props.task.summary }}</h2>
