@@ -2,6 +2,7 @@
   <div :class="focussed ? 'modal box' : ''">
     <div class="form-group">
       <input
+        id="search"
         @keydown="handleKeydown"
         @blur="eventuallyUnfocus"
         @focus="focussed = true"
@@ -59,6 +60,7 @@ const openResult = (task: Task) => {
 const eventuallyUnfocus = () => {
   setTimeout(() => {
     focussed.value = false;
+    document.querySelector<HTMLInputElement>("input#search")?.blur();
   }, 150);
 };
 
@@ -83,9 +85,11 @@ const handleKeydown = (event: KeyboardEvent) => {
 };
 
 const focusSearchBox = (e: KeyboardEvent) => {
-  if (e.ctrlKey && e.key === "k") {
+  const isMac = navigator.userAgent.includes("Macintosh");
+  const modifierKey = isMac ? e.metaKey : e.ctrlKey;
+  if (modifierKey && e.key === "k") {
     e.preventDefault();
-    document.querySelector<HTMLInputElement>('input[type="text"]')?.focus();
+    document.querySelector<HTMLInputElement>("input#search")?.focus();
   }
 };
 
