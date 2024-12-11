@@ -2,6 +2,7 @@
   <div :class="focussed ? 'modal box' : ''">
     <div class="form-group">
       <input
+        @keydown="handleKeydown"
         @blur="eventuallyUnfocus"
         @focus="focussed = true"
         :class="focussed ? 'w-full' : ''"
@@ -14,8 +15,9 @@
       <li
         @click="openResult(result.item)"
         class="small pointer px-2 py-[0.5em] my-0 cluster justify-between"
-        v-for="result in results"
+        v-for="(result, index) in results"
         :key="result.item.id"
+        :class="selectedIndex === index ? 'bg-muted-light inverse rounded' : ''"
       >
         <span>
           {{ result.item.summary }}
@@ -37,6 +39,8 @@ const taskData = inject("taskData") as Ref<Task[]>;
 const openFull = inject("openFull") as (task: Task) => void;
 const query = ref("");
 const focussed = ref(false);
+const selectedIndex = ref(0);
+
 const options = {
   fuseOptions: {
     keys: ["summary", "description"],
@@ -57,4 +61,39 @@ const eventuallyUnfocus = () => {
     focussed.value = false;
   }, 150);
 };
+
+const handleKeydown = (event: KeyboardEvent) => {
+  if (event.key === "ArrowUp") {
+    event.preventDefault();
+    selectedIndex.value = Math.max(0, selectedIndex.value - 1);
+  } else if (event.key === "ArrowDown") {
+    event.preventDefault();
+    selectedIndex.value = Math.min(
+      results.value.length - 1,
+      selectedIndex.value + 1,
+    );
+  } else if (event.key === "Enter") {
+    event.preventDefault();
+    openResult(results.value[selectedIndex.value].item);
+    eventuallyUnfocus();
+  } else if (event.key === "Escape") {
+    event.preventDefault();
+    eventuallyUnfocus();
+  }
+};
+
+const focusSearchBox = (e: KeyboardEvent) => {
+  if (e.ctrlKey && e.key === "k") {
+    e.preventDefault();
+    document.querySelector<HTMLInputElement>('input[type="text"]')?.focus();
+  }
+};
+
+onMounted(() => {
+  document.addEventListener("keydown", focusSearchBox);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("keydown", focusSearchBox);
+});
 </script>
