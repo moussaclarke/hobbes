@@ -42,7 +42,6 @@ export default defineEventHandler(async (event) => {
     `LAST-MODIFIED:${now}`,
     `SUMMARY:${formattedSummary}`,
     `DESCRIPTION:${fullDescription.replace(/\n/g, "\\n")}`,
-    "STATUS:NEEDS-ACTION",
     "PERCENT-COMPLETE:0",
     `PRIORITY:${priorityMap[body.priority as keyof typeof priorityMap]}`,
     `CATEGORIES:Triage`,
