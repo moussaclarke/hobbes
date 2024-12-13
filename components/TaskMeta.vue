@@ -31,13 +31,13 @@ const statusFormatters = {
   COMPLETED: (task: Task) =>
     `Marked as completed on ${task.completed?.toLocaleDateString()}`,
   CANCELLED: () => "This task was cancelled",
-  "NEEDS-ACTION": () => "This task is open",
-  "IN-PROCESS": () => "This task is in progress",
+  "NEEDS-ACTION": () => "This task might be worked on in future",
+  "IN-PROCESS": () => "This task is scheduled or in progress",
 };
 
 const status = computed(() => {
   if (!props.task?.status) {
-    return "No status assigned";
+    return "This task needs assessing";
   }
 
   const formatter = statusFormatters[props.task.status];
