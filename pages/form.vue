@@ -38,16 +38,16 @@
             required
           >
             <option value="bug">
-              Bug - Something isn't working as expected
+              🐛 Bug - Something isn't working as expected
             </option>
             <option value="change">
-              Change - Something could look, feel or work differently
+              🔧 Change - Something could look, feel or work differently
             </option>
             <option value="feature">
-              Feature - I have an idea for something new
+              ✨ Feature - I have an idea for something new
             </option>
             <option value="performance">
-              Performance - The system feels slow or unresponsive
+              🚀 Performance - The system feels slow or unresponsive
             </option>
           </select>
           <small>
