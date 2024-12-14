@@ -16,6 +16,10 @@ const taskTypes = [
     emoji: "🚀",
   },
   {
+    value: "maintenance",
+    emoji: "⚙️",
+  },
+  {
     value: "undefined",
     emoji: "🃏",
   },
