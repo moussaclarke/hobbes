@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
   const { description, summary } = parseTask(task);
   // get existing updates section if there is one
   const sections = description?.split(/^## /m) ?? [];
-  const updatesSectionIndex = sections.findIndex((section) =>
+  let updatesSectionIndex = sections.findIndex((section) =>
     section.trim().startsWith("Updates"),
   );
   let updates;
@@ -40,6 +40,7 @@ export default defineEventHandler(async (event) => {
   if (updatesSectionIndex === -1) {
     // No Updates section found, create one
     updates = "Updates\n";
+    updatesSectionIndex = sections.length;
   } else {
     updates = sections[updatesSectionIndex];
   }
