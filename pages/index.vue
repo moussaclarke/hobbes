@@ -8,7 +8,7 @@
             {{ categoryFilter ? `${categoryFilter}` : "All categories" }}
           </h2>
         </div>
-        <SearchBox />
+        <SearchBox @closePanel="closePanel" />
       </div>
     </div>
     <div class="cluster">
