@@ -7,23 +7,29 @@
         :category="category"
       />
     </div>
-    <div class="stack text-right border-t border-x-0 border-solid py-1">
-      <strong class="x-small">
-        {{ status }}
-      </strong>
-      <span class="x-small">
-        Created: {{ taskWithDates?.created.toLocaleDateString() }}
-      </span>
-      <span class="x-small">
-        Last modified: {{ taskWithDates?.lastModified.toLocaleDateString() }}
-      </span>
-      <span class="x-small" v-if="taskWithDates?.organizer">
-        Opened by: {{ taskWithDates?.organizer }}
-      </span>
+    <div class="cluster justify-between border-t border-x-0 border-solid py-1">
+      <div>
+        {{ emoji }}
+      </div>
+      <div class="stack text-right">
+        <strong class="x-small">
+          {{ status }}
+        </strong>
+        <span class="x-small">
+          Created: {{ taskWithDates?.created.toLocaleDateString() }}
+        </span>
+        <span class="x-small">
+          Last modified: {{ taskWithDates?.lastModified.toLocaleDateString() }}
+        </span>
+        <span class="x-small" v-if="taskWithDates?.organizer">
+          Opened by: {{ taskWithDates?.organizer }}
+        </span>
+      </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
+import { getStatusEmoji } from "../utils/taskStatuses";
 const props = defineProps<{ task: Task | null }>();
 const taskWithDates = computed(() => props.task && useTaskDates(props.task));
 
@@ -46,4 +52,6 @@ const status = computed(() => {
   }
   return props.task.status;
 });
+
+const emoji = computed(() => getStatusEmoji(props.task?.status));
 </script>
