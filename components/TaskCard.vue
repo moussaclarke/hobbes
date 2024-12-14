@@ -11,6 +11,12 @@
         class="description | small stack flow"
         v-html="description.truncatedContent"
       />
+      <div v-if="description.comments.length">
+        <span class="large"> ✉️</span>
+        <sup class="x-small bg-info inverse rounded-full p-1">{{
+          description.comments.length
+        }}</sup>
+      </div>
     </div>
     <TaskMeta :task="props.task" />
   </div>
