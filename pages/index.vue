@@ -32,6 +32,14 @@
       />
       <CategoryTag key="All" category="All" @click="categoryFilter = null" />
     </div>
+    <div class="muted medium" v-if="filteredData.length === 0">
+      No tasks found with these criteria
+    </div>
+    <div v-else class="muted medium">
+      Showing {{ filteredData.length }} task{{
+        filteredData.length === 1 ? "" : "s"
+      }}
+    </div>
     <div class="grid constrained">
       <TaskCard
         @openFull="openFull"
@@ -39,9 +47,6 @@
         :key="task.id"
         :task="task"
       />
-      <div v-if="filteredData.length === 0" class="box">
-        <p>No tasks found</p>
-      </div>
       <TaskPanel
         v-if="showingPanel"
         :task="panelTask"
