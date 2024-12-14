@@ -24,7 +24,7 @@ const renderDescription = (markdown: string) => {
   );
 
   const truncatedContent = disallowBigHeadings(
-    micromark(truncate([beforeUpdates, updatesSection].join("\n"))),
+    micromark(truncate([beforeUpdates, afterUpdates].join("\n"))),
   );
   const comments = parseComments(updatesSection);
 
