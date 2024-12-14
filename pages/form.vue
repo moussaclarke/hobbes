@@ -7,7 +7,7 @@
       {{ errorMessage }}
     </div>
     <h1>Open an issue</h1>
-    <h2 class="large primary">Project Name</h2>
+    <h2 class="large primary">{{ projectName }}</h2>
     <div class="stack flow">
       <p class="medium wide">
         You can send me your feedback, bug reports and feature requests here.
@@ -153,6 +153,7 @@ const context = ref("");
 const successMessage = ref("");
 const errorMessage = ref("");
 const disabled = ref(false);
+const projectName = useRuntimeConfig().public.davCalName;
 
 const formatHelpText = (text: string) => {
   const points = text
