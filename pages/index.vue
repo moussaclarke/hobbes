@@ -53,7 +53,7 @@
 
 <script setup lang="ts">
 useHead({
-  title: "Projects | Task List",
+  title: "Hobbes | Task List",
 });
 const { data } = await useFetch("/api/tasks");
 const taskData = ref(data.value?.data);
