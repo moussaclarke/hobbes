@@ -5,4 +5,10 @@
   border-radius: 1rem;
   font-size: var(--step--2);
   font-family: $heading-font;
+
+  &.selected {
+    transform: translateY(1px);
+    box-shadow: inset 0 2px 1px 1px rgba(0, 0, 0, 0.2);
+    filter: brightness(110%);
+  }
 }

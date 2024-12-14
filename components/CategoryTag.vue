@@ -1,7 +1,9 @@
 <template>
-  <span class="badge pointer" :style="{ backgroundColor: backgroundColor }">{{
-    category
-  }}</span>
+  <span
+    :class="'badge pointer ' + (props.selected ? 'selected' : '')"
+    :style="{ backgroundColor: backgroundColor }"
+    >{{ category }}</span
+  >
 </template>
 <script setup lang="ts">
 const props = defineProps<{ category: string; selected?: boolean }>();

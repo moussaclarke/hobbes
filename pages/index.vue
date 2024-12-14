@@ -12,13 +12,30 @@
       </div>
     </div>
     <div class="cluster">
-      <button class="button secondary small" @click="statusFilter = 'Todo'">
+      <button
+        :class="
+          'button secondary small' +
+          (statusFilter === 'Todo' ? ' selected' : '')
+        "
+        @click="statusFilter = 'Todo'"
+      >
         Todo
       </button>
-      <button class="button secondary small" @click="statusFilter = 'Done'">
+      <button
+        :class="
+          'button secondary small' +
+          (statusFilter === 'Done' ? ' selected' : '')
+        "
+        @click="statusFilter = 'Done'"
+      >
         Done
       </button>
-      <button class="button vibrant small" @click="statusFilter = 'All'">
+      <button
+        :class="
+          'button vibrant small' + (statusFilter === 'All' ? ' selected' : '')
+        "
+        @click="statusFilter = 'All'"
+      >
         All
       </button>
     </div>
@@ -30,7 +47,12 @@
         :selected="categoryFilter === category"
         @click="categoryFilter = category"
       />
-      <CategoryTag key="All" category="All" @click="categoryFilter = null" />
+      <CategoryTag
+        key="All"
+        category="All"
+        @click="categoryFilter = null"
+        :selected="!categoryFilter"
+      />
     </div>
     <div class="muted medium" v-if="filteredData.length === 0">
       No tasks found with these criteria
