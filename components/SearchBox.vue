@@ -41,6 +41,7 @@ const openFull = inject("openFull") as (task: Task) => void;
 const query = ref("");
 const focussed = ref(false);
 const selectedIndex = ref(0);
+const emit = defineEmits(["closePanel"]);
 
 const options = {
   fuseOptions: {
@@ -90,6 +91,8 @@ const focusSearchBox = (e: KeyboardEvent) => {
   if (modifierKey && e.key === "k") {
     e.preventDefault();
     document.querySelector<HTMLInputElement>("input#search")?.focus();
+    // close the task panel if it's open
+    emit("closePanel");
   }
 };
 
