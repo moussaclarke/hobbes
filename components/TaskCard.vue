@@ -6,7 +6,7 @@
     @keydown.enter="$emit('openFull', props.task)"
   >
     <div class="task | stack flow">
-      <h2 class="medium primary">{{ props.task.summary }}</h2>
+      <TaskTitle :summary="props.task.summary" />
       <div
         class="description | small stack flow"
         v-html="description.truncatedContent"

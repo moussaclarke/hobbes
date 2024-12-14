@@ -38,16 +38,20 @@
             required
           >
             <option value="bug">
-              🐛 Bug - Something isn't working as expected
+              {{ getTaskTypeEmoji("bug") }} Bug - Something isn't working as
+              expected
             </option>
             <option value="change">
-              🔧 Change - Something could look, feel or work differently
+              {{ getTaskTypeEmoji("change") }} Change - Something could look,
+              feel or work differently
             </option>
             <option value="feature">
-              ✨ Feature - I have an idea for something new
+              {{ getTaskTypeEmoji("feature") }} Feature - I have an idea for
+              something new
             </option>
             <option value="performance">
-              🚀 Performance - The system feels slow or unresponsive
+              {{ getTaskTypeEmoji("performance") }} Performance - The system
+              feels slow or unresponsive
             </option>
           </select>
           <small>
@@ -137,6 +141,7 @@
 </template>
 <script setup lang="ts">
 import { useFormHelp } from "../composables/useFormHelp";
+import { getTaskTypeEmoji } from "../utils/taskTypes";
 
 const { issueTypeHelpTextMap, descriptionHelpTextMap, contextHelpTextMap } =
   useFormHelp();
