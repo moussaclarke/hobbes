@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
   const client = davClient();
   const { email } = getEmailFromEvent(event);
 
-  const userName = email ? email.split("@")[0] : "unknown";
+  const userName = email ? email : "unknown";
 
   const uid = body.taskId;
   const content = body.content;
