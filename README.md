@@ -64,7 +64,7 @@ nlx wrangler pages deploy dist
 
 The env vars will need to be set up manually in the cloudflare dashboard. They keys need to be prefixed with "NUXT_" for them to be picked up as runtime env vars.
 
-The app also needs to be secured behind Cloudflare Access - it relies on cookie headers set by Cloudflare Access to get the email of the currently authenticated user.
+The app also needs to be secured behind Cloudflare Access - it relies on cookie headers set by Cloudflare Access to get the email of the currently authenticated user. If you need more than 50 users you'll have to upgrade to a paid Cloudflare Access plan.
 
 ## Todo
 
