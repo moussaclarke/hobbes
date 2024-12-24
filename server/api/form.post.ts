@@ -1,13 +1,13 @@
 import davClient from "~/server/utils/davClient";
 import { sendEmail } from "../utils/email";
-import { eventToTask } from "../utils/eventToTask";
+import { formEventToTask } from "../utils/formEventToTask";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const config = useRuntimeConfig();
   const client = davClient();
 
-  const task = await eventToTask(event);
+  const task = await formEventToTask(event);
 
   try {
     // Create the task on the CalDAV server

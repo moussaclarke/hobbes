@@ -1,7 +1,7 @@
-import { getEmailFromEvent } from "../utils/getEmailFromEvent";
+import { getEmailFromEvent } from "./getEmailFromEvent";
 import { H3Event } from "h3";
 
-export const eventToTask = async (event: H3Event) => {
+export const formEventToTask = async (event: H3Event) => {
   const body = await readBody(event);
   const { email } = getEmailFromEvent(event);
 
