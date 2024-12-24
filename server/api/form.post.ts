@@ -1,79 +1,26 @@
 import davClient from "~/server/utils/davClient";
 import { sendEmail } from "../utils/email";
-import { getEmailFromEvent } from "../utils/getEmailFromEvent";
+import { eventToTask } from "../utils/eventToTask";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const config = useRuntimeConfig();
   const client = davClient();
-  const { email } = getEmailFromEvent(event);
 
-  // Convert priority to iCalendar format (1-9 scale)
-  // 1-4: high, 5: medium, 6-9: low
-  const priorityMap = {
-    high: 1,
-    medium: 5,
-    low: 9,
-  };
-
-  const formattedSummary = `${body.issueType.charAt(0).toUpperCase() + body.issueType.slice(1)}: ${body.summary}`;
-
-  const fullDescription = [
-    "## Description",
-    body.description,
-    "\n", // Empty line between description and context
-    "## Context",
-    body.context,
-  ]
-    .filter(Boolean)
-    .join("\n");
-
-  // Generate unique ID for the task
-  const uid = crypto.randomUUID();
-
-  // Create task in iCalendar format
-  const now = new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-
-  // Prepare the VTODO properties
-  const todoProperties = [
-    `UID:${uid}`,
-    `DTSTAMP:${now}`,
-    `CREATED:${now}`,
-    `LAST-MODIFIED:${now}`,
-    `SUMMARY:${formattedSummary}`,
-    `DESCRIPTION:${fullDescription.replace(/\n/g, "\\n")}`,
-    "PERCENT-COMPLETE:0",
-    `PRIORITY:${priorityMap[body.priority as keyof typeof priorityMap]}`,
-    `CATEGORIES:Triage`,
-  ];
-
-  // Add ORGANIZER if email is available
-  if (email) {
-    todoProperties.push(`ORGANIZER;CN=${email}:mailto:${email}`);
-  }
-
-  const vcalendar = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//tasks.moussaclarke.dev//EN",
-    "BEGIN:VTODO",
-    ...todoProperties,
-    "END:VTODO",
-    "END:VCALENDAR",
-  ].join("\r\n");
+  const task = await eventToTask(event);
 
   try {
     // Create the task on the CalDAV server
-    await client.createTask(vcalendar, `${uid}.ics`);
+    await client.createTask(task.vcalendar, `${task.uid}.ics`);
 
     // Send email notification
     await sendEmail({
       to: config.notificationEmail,
-      subject: `New Task Created: ${formattedSummary}`,
+      subject: `New Task Created: ${task.formattedSummary}`,
       text: `
     A new task has been created:
 
-    From: ${email ?? "unknown"}
+    From: ${task.email ?? "unknown"}
     Type: ${body.issueType}
     Summary: ${body.summary}
     Priority: ${body.priority}
@@ -84,7 +31,7 @@ export default defineEventHandler(async (event) => {
           `.trim(),
       html: `
     <h2>New Task Created</h2>
-    <p><strong>From:</strong> ${email ?? "unknown"}</p>
+    <p><strong>From:</strong> ${task.email ?? "unknown"}</p>
     <p><strong>Type:</strong> ${body.issueType}</p>
     <p><strong>Summary:</strong> ${body.summary}</p>
     <p><strong>Priority:</strong> ${body.priority}</p>
