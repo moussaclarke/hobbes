@@ -1,3 +1,6 @@
+@use "../variables/colours";
+@use "../variables/fonts";
+
 .task .description,
 .task .comments {
   // headings all smaller than the default
@@ -9,17 +12,17 @@
   }
 
   .user {
-    background-color: $muted-colour;
-    color: $inverse-colour;
+    background-color: colours.$muted-colour;
+    color: colours.$inverse-colour;
     padding: 0.25rem 0.75rem;
     border-radius: 1rem;
-    font-family: $heading-font;
+    font-family: fonts.$heading-font;
     font-size: var(--step--2);
   }
 
   .comment {
-    background-color: $semi-transparent-colour;
-    color: $inverse-colour;
+    background-color: colours.$semi-transparent-colour;
+    color: colours.$inverse-colour;
     padding: 1rem 1.25rem;
     border-radius: 0.5rem;
   }

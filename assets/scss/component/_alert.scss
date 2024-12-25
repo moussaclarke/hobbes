@@ -1,5 +1,7 @@
+@use "../variables/colours";
+
 .alert {
-  color: $inverse-colour;
+  color: colours.$inverse-colour;
   display: grid;
   width: 100%;
   grid-auto-flow: column;

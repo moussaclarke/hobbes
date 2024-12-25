@@ -1,12 +1,15 @@
+@use "../variables/colours";
+@use "../variables/fonts";
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-    font-family: $heading-font;
+    font-family: fonts.$heading-font;
     font-weight: bold;
-    color: $primary-colour;
+    color: colours.$primary-colour;
     letter-spacing: 0.005em;
     margin-bottom: 0.1em;
 }
@@ -28,7 +31,7 @@ h3 {
     h4,
     h5,
     h6 {
-        color: $primary-colour;
+        color: colours.$primary-colour;
     }
 }
 

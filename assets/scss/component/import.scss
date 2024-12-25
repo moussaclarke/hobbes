@@ -1,2 +1,11 @@
-@import "global", "headings", "link", "button", "footer", "badge", "form",
-  "alert", "task", "panel", "modal";
+@use "global";
+@use "headings";
+@use "link";
+@use "button";
+@use "footer";
+@use "badge";
+@use "form";
+@use "alert";
+@use "task";
+@use "panel";
+@use "modal";

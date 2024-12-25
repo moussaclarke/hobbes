@@ -1,10 +1,13 @@
+@use "../variables/colours";
+@use "../variables/fonts";
+
 .badge {
-  background-color: $primary-colour;
-  color: $inverse-colour;
+  background-color: colours.$primary-colour;
+  color: colours.$inverse-colour;
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
   font-size: var(--step--2);
-  font-family: $heading-font;
+  font-family: fonts.$heading-font;
 
   &.selected {
     transform: translateY(1px);

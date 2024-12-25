@@ -1,7 +1,10 @@
+@use "../variables/colours";
+@use "../variables/fonts";
+
 .global {
-  background-color: $inverse-colour;
-  color: $neutral-colour;
-  font-family: $main-font;
+  background-color: colours.$inverse-colour;
+  color: colours.$neutral-colour;
+  font-family: fonts.$main-font;
   font-size: var(--step-1);
   line-height: 1.5;
   display: flex;
@@ -18,7 +21,7 @@ main {
 
 nav {
   justify-content: space-between;
-  font-family: $heading-font;
+  font-family: fonts.$heading-font;
   font-size: var(--step-0);
 }
 

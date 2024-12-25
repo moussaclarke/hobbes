@@ -1,6 +1,8 @@
+@use "../variables/colours";
+
 a {
     text-decoration-skip-ink: auto;
-    color: $vibrant-colour;
+    color: colours.$vibrant-colour;
     text-decoration: none;
     font-weight: 600;
 
@@ -17,7 +19,7 @@ a {
         1s ease filter,
         1s ease text-shadow;
 
-    @each $key, $value in $colours {
+    @each $key, $value in colours.$colours {
         &.#{$key} {
             color: $value;
 

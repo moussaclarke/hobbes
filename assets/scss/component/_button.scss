@@ -1,7 +1,9 @@
+@use "../variables/colours";
+
 button.button,
 a.button {
-  background-color: $primary-colour;
-  color: $inverse-colour !important;
+  background-color: colours.$primary-colour;
+  color: colours.$inverse-colour !important;
   font-weight: 400;
   padding: 0.4rem 1rem;
   border-radius: 0.5rem;
@@ -16,7 +18,7 @@ a.button {
   border-width: 0;
 
   &.outline {
-    border: 1px solid $neutral-colour;
+    border: 1px solid colours.$neutral-colour;
     outline-style: none;
   }
 
@@ -26,13 +28,13 @@ a.button {
   }
 
   // cycle through background colours
-  @each $key, $value in $colours {
+  @each $key, $value in colours.$colours {
     &.#{$key} {
       background-color: $value;
 
       @if ($key == "neutral") {
         // todo: only in dark mode, reverse in light mode
-        color: $inverse-colour !important;
+        color: colours.$inverse-colour !important;
       }
     }
   }
@@ -40,7 +42,7 @@ a.button {
   &:hover,
   &:focus,
   &:active {
-    color: $neutral-colour;
+    color: colours.$neutral-colour;
   }
 
   &:hover {
@@ -53,7 +55,7 @@ a.button {
   }
 
   &:disabled {
-    background-color: $semi-transparent-colour;
+    background-color: colours.$semi-transparent-colour;
     cursor: not-allowed;
   }
 
@@ -68,5 +70,5 @@ a.button {
 
 .inverted button.button.transparent,
 .inverted a.button.transparent {
-  color: $inverse-colour !important;
+  color: colours.$inverse-colour !important;
 }

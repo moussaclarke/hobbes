@@ -1,3 +1,5 @@
+@use "../variables/colours";
+
 .form-group {
   // based on this https://github.com/nielsVoogt/nice-forms.css/blob/main/src/nice-forms.scss
   // Input size - used for height/padding calculations
@@ -11,30 +13,30 @@
   --label-font-family: inherit;
 
   // Input
-  --input-color: #{$neutral-colour};
+  --input-color: #{colours.$neutral-colour};
   --input-border-radius: 0.25rem;
-  --input-placeholder-color: #{$muted-colour};
-  --input-border-color: #{$muted-colour};
+  --input-placeholder-color: #{colours.$muted-colour};
+  --input-border-color: #{colours.$muted-colour};
   --input-border-width: 1px;
   --input-border-style: solid;
   --input-border-bottom-width: 1px;
-  --input-focus-border-color: #{$primary-colour};
+  --input-focus-border-color: #{colours.$primary-colour};
   --input-background-color: white;
 
   // Valid/invalid
   --invalid-input-border-color: var(--input-border-color);
   --invalid-input-background-color: var(--input-background-color);
-  --invalid-input-color: #{$error-colour};
+  --invalid-input-color: #{colours.$error-colour};
   --valid-input-border-color: var(--input-border-color);
   --valid-input-background-color: var(--input-background-color);
   --valid-input-color: var(--input-color);
-  --invalid-input-border-bottom-color: #{$error-colour};
-  --valid-input-border-bottom-color: #{$success-colour};
+  --invalid-input-border-bottom-color: #{colours.$error-colour};
+  --valid-input-border-bottom-color: #{colours.$success-colour};
 
   // Label variables
   --label-font-size: var(--small-font-size);
   --label-font-weight: 700;
-  --label-color: #{$primary-colour};
+  --label-color: #{colours.$primary-colour};
 
   // Slider variables
   --slider-track-background: #dfdfdf;
@@ -199,9 +201,11 @@
 
     // -------- ICONS
 
+    & {
+
     --icon-padding: calc(var(--input-size) * 2.25);
     --icon-background-offset: calc(var(--input-size) * 0.75);
-
+}
     &.icon-left {
       background-position: left var(--icon-background-offset) bottom 50%;
       padding-left: var(--icon-padding);
@@ -488,13 +492,14 @@
   }
 
   // --------------- SWITCH
-
+& {
   --switch-orb-size: var(--input-size);
   --switch-orb-offset: calc(var(--input-border-width) * 2);
   --switch-width: calc(var(--input-size) * 2.5);
   --switch-height: calc(
     calc(var(--input-size) * 1.25) + var(--switch-orb-offset)
   );
+  }
 
   > input[type="checkbox"].switch {
     width: var(--switch-width);

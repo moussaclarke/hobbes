@@ -1,8 +1,9 @@
+@use "sass:list";
 $sizes: "xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large",
     "huge", "gigantic", "colossal", "colossus";
 
-@for $key from 1 through length($sizes) {
-    $size: nth($sizes, $key);
+@for $key from 1 through list.length($sizes) {
+    $size: list.nth($sizes, $key);
     $step: $key - 4;
 
     .#{$size} {

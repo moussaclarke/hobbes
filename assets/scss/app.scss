@@ -1,1 +1,4 @@
-@import "variables/import", "composition/import", "utilities/import", "component/import";
+@use "variables/import" as variables;
+@use "composition/import" as composition;
+@use "utilities/import" as utilities;
+@use "component/import" as component;

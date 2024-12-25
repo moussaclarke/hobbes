@@ -1,4 +1,6 @@
-@each $key, $value in $colours {
+@use "../variables/colours";
+
+@each $key, $value in colours.$colours {
     .#{$key} {
         color: $value !important;
     }
@@ -13,8 +15,8 @@
 }
 
 .inverted {
-    background-color: $neutral-colour !important;
-    color: $inverse-colour !important;
+    background-color: colours.$neutral-colour !important;
+    color: colours.$inverse-colour !important;
 
     table tr:nth-child(even) td {
         background-color: rgba(0, 0, 0, 0.15) !important;
@@ -22,8 +24,8 @@
 }
 
 .reverted {
-    background-color: $inverse-colour !important;
-    color: $neutral-colour !important;
+    background-color: colours.$inverse-colour !important;
+    color: colours.$neutral-colour !important;
 
     table tr:nth-child(even) td {
         background-color: rgba(255, 255, 255, 0.15) !important;
