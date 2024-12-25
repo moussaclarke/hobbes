@@ -124,7 +124,7 @@
         ></small>
       </div>
       <button :disabled="disabled" class="button" type="submit">
-        <span v-if="submitting" class="animate-spin">↻</span>
+        <span v-if="submitting" class="animate-spin inline-block">↻</span>
         {{ submitting ? "Submitting..." : "Submit" }}
       </button>
     </form>

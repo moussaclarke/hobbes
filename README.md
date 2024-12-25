@@ -10,12 +10,12 @@ I was happily using TickTick, and while it's got some really nice UI features, t
 
 ## Features
 
-The main goals and features are:
+Hobbes is opinionated. The main goals and features are:
 
 - to show a list of tasks and their current status. These are then filterable by status and category.
 - to show a more detailed view of a task when you click on it.
 - to implement a simple custom commenting system for tasks, which can still be used in external CalDAV clients.
-- to allow clients to add new issues for triage.
+- to allow clients to add new issues for triage, and to encourage them to submit useful, actionable issues, leveraging LLMs for inline, subjective feedback.
 - to be essentially free to host on Cloudflare pages/workers.
 
 I do the actual task management and editing via [Thunderbird](https://www.thunderbird.net/) on my desktop, and [Tasks.org](https://tasks.org/) on my phone. I run a [baikal](https://sabre.io/baikal/) server, which is what Hobbes is currently deployed against in my setup, but it should work with other compliant CalDAV servers, like FastMail, Nextcloud or whatever.
@@ -62,9 +62,23 @@ The build process includes an automated post-build script that processes `dist/_
 nlx wrangler pages deploy dist
 ```
 
-The env vars will need to be set up manually in the cloudflare dashboard. They keys need to be prefixed with "NUXT_" for them to be picked up as runtime env vars.
+The env vars will need to be set up manually in the cloudflare dashboard. The keys need to be prefixed with "NUXT_" for them to be picked up as runtime env vars. `NUXT_DAV_PASSWORD`, `NUXT_DAV_USER` and `NUXT_EMAIL_API_KEY` should be secrets.
 
 The app also needs to be secured behind Cloudflare Access - it relies on cookie headers set by Cloudflare Access to get the email of the currently authenticated user. If you need more than 50 users you'll have to upgrade to a paid Cloudflare Access plan.
+
+It also needs Cloudflare Workers AI to provide subjective issue validation and feedback. The "Workers AI" binding needs to be enabled on the project and assigned to the `AI` name.
+
+## Transactional Email Service
+
+I use [resend](https://resend.com/), which has a generous free tier. This is currently the only supported service, however it should be pretty straightforward to support other services by implementing an appropriate `emailProvider`.
+
+## Project Prompt
+
+The project prompt configuration item tells the llm a bit about the client project when formulating the issue submission feedback. You can also use it to inject any other text into the prompt in case you need to nudge its response.
+
+You can see the one I used on a specific client project in `.env.example` - I had to specifically tell it that the project didn't have any concept of plugins or it would consistently hallucinate irrelevant plugin-related feedback
+
+You can experiment with the [playground](https://playground.ai.cloudflare.com/) a bit to see what comes back. See `server/utils/validateFormWithLLM.ts` to check out the rest of the prompt.
 
 ## Todo
 
