@@ -124,7 +124,8 @@
         ></small>
       </div>
       <button :disabled="disabled" class="button" type="submit">
-        {{ disabled ? "Submitting..." : "Submit" }}
+        <span v-if="submitting" class="animate-spin">↻</span>
+        {{ submitting ? "Submitting..." : "Submit" }}
       </button>
     </form>
     <div v-if="successMessage" class="alert bg-success">
@@ -183,6 +184,7 @@ const formattedWarningMessage = computed(() => {
 });
 const warningMessage = ref("");
 const disabled = ref(false);
+const submitting = ref(false);
 const projectName = useRuntimeConfig().public.davCalName;
 
 const formatHelpText = (text: string) => {
@@ -218,6 +220,7 @@ const formData = reactive({
 
 const submitForm = async () => {
   disabled.value = true;
+  submitting.value = true;
   try {
     successMessage.value = "";
     errorMessage.value = "";
@@ -228,10 +231,13 @@ const submitForm = async () => {
       body: formData,
     });
 
+    submitting.value = false;
+
     if (!response.success) {
       warningMessage.value = response.message;
       aiResponse.value = response.aiResponse;
       disabled.value = false;
+
       return;
     }
 
@@ -246,6 +252,7 @@ const submitForm = async () => {
       disabled.value = false;
     }, 6000);
   } catch (error) {
+    submitting.value = false;
     errorMessage.value = "Failed to submit the issue. Please try again.";
     console.error("Failed to submit form:", error);
 
