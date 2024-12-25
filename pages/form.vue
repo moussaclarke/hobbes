@@ -139,7 +139,10 @@
           Your issue was not submitted yet. Our AI system detected some
           potential issues:
         </p>
-        <div v-html="formattedWarningMessage"></div>
+        <blockquote
+          class="pl-4 my-2 border-l-2"
+          v-html="formattedWarningMessage"
+        ></blockquote>
         <p>
           If you'd like to submit the issue anyway, you can click the "Submit"
           button again.
