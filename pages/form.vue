@@ -140,7 +140,7 @@
           potential issues:
         </p>
         <blockquote
-          class="pl-4 my-2 border-l-2"
+          class="pl-4 my-2 border-l-4 border-l-solid"
           v-html="formattedWarningMessage"
         ></blockquote>
         <p>
