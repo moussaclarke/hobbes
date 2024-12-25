@@ -123,13 +123,28 @@
           v-html="'Please provide some additional context: ' + contextHelpText"
         ></small>
       </div>
-      <button :disabled="disabled" class="button" type="submit">Submit</button>
+      <button :disabled="disabled" class="button" type="submit">
+        {{ disabled ? "Submitting..." : "Submit" }}
+      </button>
     </form>
     <div v-if="successMessage" class="alert bg-success">
       {{ successMessage }}
     </div>
     <div v-if="errorMessage" class="alert bg-error">
       {{ errorMessage }}
+    </div>
+    <div v-if="warningMessage" class="alert bg-warning">
+      <div>
+        <p>
+          Your issue was not submitted yet. Our AI system detected some
+          potential issues:
+        </p>
+        <div v-html="formattedWarningMessage"></div>
+        <p>
+          If you'd like to submit the issue anyway, you can click the "Submit"
+          button again.
+        </p>
+      </div>
     </div>
     <small>
       Tip: If you need to include any screenshots, try
@@ -140,11 +155,12 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useFormHelp } from "../composables/useFormHelp";
+import { micromark } from "micromark";
+import { formHelpMaps } from "../utils/formHelpMaps";
 import { getTaskTypeEmoji } from "../utils/taskTypes";
 
 const { issueTypeHelpTextMap, descriptionHelpTextMap, contextHelpTextMap } =
-  useFormHelp();
+  formHelpMaps();
 
 useHead({
   title: "Hobbes | Submit an issue",
@@ -157,6 +173,12 @@ const description = ref("");
 const context = ref("");
 const successMessage = ref("");
 const errorMessage = ref("");
+const aiResponse = ref(null);
+
+const formattedWarningMessage = computed(() => {
+  return micromark(warningMessage.value);
+});
+const warningMessage = ref("");
 const disabled = ref(false);
 const projectName = useRuntimeConfig().public.davCalName;
 
@@ -188,6 +210,7 @@ const formData = reactive({
   summary,
   description,
   context,
+  aiResponse,
 });
 
 const submitForm = async () => {
@@ -195,11 +218,20 @@ const submitForm = async () => {
   try {
     successMessage.value = "";
     errorMessage.value = "";
+    warningMessage.value = "";
 
-    await $fetch("/api/form", {
+    const response = await $fetch("/api/form", {
       method: "POST",
       body: formData,
     });
+
+    if (!response.success) {
+      warningMessage.value = response.message;
+      aiResponse.value = response.aiResponse;
+      disabled.value = false;
+      return;
+    }
+
     summary.value = "";
     description.value = "";
     context.value = "";
