@@ -3,20 +3,18 @@ import { formHelpMaps } from "../../utils/formHelpMaps";
 
 const promptStart = `You are an issue validation processor. Your role is to analyze the provided title/summary, description and context, assess completion and generate actionable feedback for missing details, in a sufficiently machine readable format. The analysis will be seen by developers, the feedback will be seen by the user.
 
-Assume the user is non technical, and has only limited understanding of how browsers or computers work, of how the web application should work or how application development works. For example, they may file a bug but it's really a feature request or a training issue.
+Assume the user is non technical, and has only limited understanding of how browsers or computers work, of how the web application should work or how application development works. For example, they may file a bug but it's really a feature request or a training issue.`;
 
-The web application in question is a bespoke CMS for their website developed by us on top of Laravel and TwillCMS. It does not have plugins and the user would have no concept of such a thing. If the user refers to the "dashboard" they usually mean the admin part of the CMS, which is where they can set up pages, articles, products and so on.
-
-The issue tracker is a simple form, it does not allow attaching files so screenshots need to be provided as a link via e.g. snipboard.io, and screen recordings would need to be via e.g. google docs, loom or dropbox. The absence of such a link indicates that they didn't include any visual context.
+const promptMiddle = `The issue tracker is a simple form, it does not allow attaching files so screenshots need to be provided as a link via e.g. snipboard.io, and screen recordings would need to be via e.g. google docs, loom or dropbox. The absence of such a link indicates that they didn't include any visual context.
 
 The user can choose between bug, change, feature or performance issue types.`;
 
 const promptEnd = `Follow these steps:
 1. Analyze the content for clarity and completeness. Check for:
 Clear problem description.
-Reproducibility steps
+Reproducibility steps in the case of bugs or performance issues.
 Expected vs. actual outcome.
-Relevant context or additional materials (e.g. screenshots, links, logs).
+Relevant context or additional materials (e.g. screenshots, links, logs, business processes).
 Whether they followed the help text suggestions for each of the fields.
 
 2. If any essential detail is missing, provide specific feedback like: “You mentioned the issue happens when clicking a button, but it’s unclear which button or under what conditions. Could you clarify?” Suggest follow-up questions or actions for the reporter to take in a readable, concise and clear tone -  remember that the end user is non technical, so avoid jargon or acronyms. Split the feedback by Title/Summary, Description and Context if necessary. Explain why you need further details.
@@ -50,7 +48,9 @@ export const validateFormEventWithLLM = async (event: H3Event) => {
 Description: ${descriptionHelpTextMap[body.issueType]}
 Context: ${contextHelpTextMap[body.issueType]}`;
 
-  const prompt = `${promptStart} In this case the user filed a ${body.issueType} issue. ${helpText} ${promptEnd}`;
+  const projectPrompt = useRuntimeConfig().projectPrompt;
+
+  const prompt = `${promptStart} ${projectPrompt} ${promptMiddle} In this case the user filed a ${body.issueType} issue. ${helpText} ${promptEnd}`;
 
   const ai = event.context.cloudflare.env.AI;
 
