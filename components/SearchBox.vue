@@ -54,7 +54,7 @@ const options = {
 };
 const { results } = useFuse(query, taskData, options);
 const openResult = (task: Task) => {
-  const taskWithDates = useTaskDates(task);
+  const taskWithDates = setTaskDates(task);
   openFull(taskWithDates);
   query.value = "";
 };

@@ -31,7 +31,7 @@ const addComment = async () => {
   // get the task index
   const index = taskData.value.findIndex((task) => task.id === props.task.id);
   if (index !== -1 && res.success) {
-    const taskWithDates = useTaskDates(res.data);
+    const taskWithDates = setTaskDates(res.data);
     taskData.value.splice(index, 1, taskWithDates);
     openFull(taskWithDates);
     comment.value = "";

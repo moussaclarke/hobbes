@@ -79,10 +79,6 @@ const disallowBigHeadings = (markdown: string) => {
     .replace(/<\/h2>/g, "</h3>");
 };
 
-export function useDescriptionRenderer() {
-  return {
-    render: (markdown: string) => {
-      return renderDescription(markdown);
-    },
-  };
-}
+export const render = (markdown: string) => {
+  return renderDescription(markdown);
+};

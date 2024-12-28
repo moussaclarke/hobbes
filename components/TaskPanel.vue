@@ -25,9 +25,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useDescriptionRenderer } from "~/composables/useDescriptionRenderer";
+import { render } from "~/utils/descriptionRenderer";
 const props = defineProps<{ task: Task | null }>();
-const { render } = useDescriptionRenderer();
 const emit = defineEmits(["closePanel"]);
 
 const description = computed(() => {

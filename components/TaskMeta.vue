@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { getStatusEmoji } from "../utils/taskStatuses";
 const props = defineProps<{ task: Task | null }>();
-const taskWithDates = computed(() => props.task && useTaskDates(props.task));
+const taskWithDates = computed(() => props.task && setTaskDates(props.task));
 
 const statusFormatters = {
   COMPLETED: (task: Task) =>

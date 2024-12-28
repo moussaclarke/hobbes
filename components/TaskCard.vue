@@ -22,9 +22,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useDescriptionRenderer } from "~/composables/useDescriptionRenderer";
+import { render } from "~/utils/descriptionRenderer";
 const props = defineProps<{ task: Task }>();
-const { render } = useDescriptionRenderer();
 
 const description = computed(() => {
   if (!props.task.description)
