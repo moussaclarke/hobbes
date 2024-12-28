@@ -164,7 +164,7 @@ import { formHelpMaps } from "../utils/formHelpMaps";
 import { getTaskTypeEmoji } from "../utils/taskTypes";
 
 const { issueTypeHelpTextMap, descriptionHelpTextMap, contextHelpTextMap } =
-  formHelpMaps();
+  formHelpMaps;
 
 useHead({
   title: "Hobbes | Submit an issue",

@@ -52,10 +52,8 @@ const contextHelpTextMap = {
   `,
 };
 
-export function formHelpMaps() {
-  return {
-    issueTypeHelpTextMap,
-    descriptionHelpTextMap,
-    contextHelpTextMap,
-  };
-}
+export const formHelpMaps = {
+  issueTypeHelpTextMap,
+  descriptionHelpTextMap,
+  contextHelpTextMap,
+};

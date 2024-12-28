@@ -38,7 +38,7 @@ export const validateFormEventWithLLM = async (event: H3Event) => {
   } = await readBody(event);
 
   const { issueTypeHelpTextMap, descriptionHelpTextMap, contextHelpTextMap } =
-    formHelpMaps();
+    formHelpMaps;
 
   const helpText = `The user had the following help text for each field:
   Issue Type: ${issueTypeHelpTextMap[body.issueType]}
