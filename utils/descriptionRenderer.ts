@@ -1,6 +1,6 @@
 import { micromark } from "micromark";
 
-const renderDescription = (markdown: string) => {
+const render = (markdown: string) => {
   const sections = markdown.split(/^## /m);
   const updatesSectionIndex = sections.findIndex((section) =>
     section.trim().startsWith("Updates"),
@@ -79,6 +79,4 @@ const disallowBigHeadings = (markdown: string) => {
     .replace(/<\/h2>/g, "</h3>");
 };
 
-export const render = (markdown: string) => {
-  return renderDescription(markdown);
-};
+export { render };
