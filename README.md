@@ -14,7 +14,8 @@ Hobbes is opinionated. The main goals and features are:
 
 - to show a list of tasks and their current status. These are then filterable by status and category.
 - to show a more detailed view of a task when you click on it.
-- to implement a simple custom commenting system for tasks, which can still be used in external CalDAV clients.
+- to support markdown in the task description.
+- to implement a simple, markdown-compatible custom commenting system for tasks, which still makes sense in external CalDAV clients.
 - to allow clients to add new issues for triage, and to encourage them to submit useful, actionable issues, leveraging LLMs for inline, subjective feedback.
 - to be essentially free to host on Cloudflare pages/workers.
 
@@ -80,6 +81,18 @@ You can see the one I used on a specific client project in `.env.example` - I ha
 
 You can experiment with the [playground](https://playground.ai.cloudflare.com/) a bit to see what comes back. See `server/utils/validateFormWithLLM.ts` to check out the rest of the prompt.
 
+## Comment Syntax
+
+The comment system uses the following syntax:
+
+1. Comments section starts with the title `## Updates`. There MUST be only one of these per task.
+2. Comments section ends with another section title `## Foobar`, or the end of the task description.
+3. First line of a comment is the user name/email in the format `@username@example.com` followed by optional timestamp in square brackets e.g. `[Wed, 11 Dec 2024 10:06:13 GMT]`.
+4. Comment body follows.
+5. Comment ends with another comment start, or another section title, or the end of the task description.
+
+You can add comments in any CalDAV client by following the above syntax, and the web app will format them accordingly.
+
 ## Todo
 
 - Support multiple projects
@@ -88,7 +101,7 @@ You can experiment with the [playground](https://playground.ai.cloudflare.com/) 
 - Refactor, particularly CalDAV object parsing/handling
 - Performance improvements
 - Test all the things
-- Additional documentation, particularly the comment syntax
+- Additional documentation
 
 ## License
 
