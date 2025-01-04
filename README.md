@@ -37,9 +37,7 @@ Some non-goals are:
 
 ## Setup
 
-Before you get started, you'll need a working CalDAV server. I use [baikal](https://sabre.io/baikal/) for this.
-
-NB: I use [@antfu/ni](https://github.com/antfu-collective/ni) so I don't have to think about various node package managers across multiple projects, but you can use the underlying bun commands instead if you prefer - i.e. `bun install`, `bun run`, `bunx` etc.
+Before you get started, you'll need a working CalDAV server. I use [baikal](https://sabre.io/baikal/) for this. You'll also need a Cloudflare account as well as [bun](https://bun.sh/), [wrangler](https://developers.cloudflare.com/workers/wrangler/) and [@antfu/ni](https://github.com/antfu-collective/ni) installed locally.
 
 ```bash
 cp .env.example .env
