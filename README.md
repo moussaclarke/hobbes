@@ -1,3 +1,5 @@
+![Hobbes Logo](assets/img/logo.svg?raw=true)
+
 # Hobbes
 
 A solo dev project management web app, based on CalDAV VTODO.
