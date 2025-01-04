@@ -55,7 +55,7 @@ nr build
 nlx nuxi build --dot-env .env.example && nr scripts/post-build.ts
 ```
 
-This uses `.env.example` on purpose, so that private variables are not leaked into the production build. See below for how to set up the env vars.
+This uses `.env.example` on purpose, so that private variables are not leaked into the production build. See below for how to set up the env vars in production.
 
 The build process includes an automated post-build script that processes `dist/_worker.js/chunks/_/davClient.mjs` to find and replace `n.fetch` with `fetch`. This is because nitro overwrites all instances of  the `fetch` function in the `tsdav` library with a non-existent custom one during build for some unknown reason 🤷‍♂️
 
