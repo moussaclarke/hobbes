@@ -7,6 +7,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       davCalName: process.env.DAV_CAL_NAME,
+      notificationEmail: process.env.NOTIFICATION_EMAIL,
     },
     davUser: process.env.DAV_USER,
     davPassword: process.env.DAV_PASSWORD,

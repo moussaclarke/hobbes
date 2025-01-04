@@ -22,7 +22,7 @@
       <p class="medium">
         If there is something really critical that needs addressing immediately
         (for example the site is completely down) it's probably better to
-        <a href="mailto:moussaclarke@gmail.com">email me</a>
+        <a href="mailto:{{ notificationEmail}}">email me</a>
         directly.
       </p>
     </div>
@@ -186,6 +186,7 @@ const warningMessage = ref("");
 const disabled = ref(false);
 const submitting = ref(false);
 const projectName = useRuntimeConfig().public.davCalName;
+const notificationEmail = useRuntimeConfig().public.notificationEmail;
 
 const formatHelpText = (text: string) => {
   const points = text
