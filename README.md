@@ -2,9 +2,9 @@
 
 # Hobbes
 
-A solo dev project management web app, based on CalDAV VTODO.
+A solo dev project management web app, based on [CalDAV](https://www.ietf.org/rfc/rfc4791.txt) VTODO.
 
-Built using Nuxt 3, deploy to Cloudflare Pages.
+Built using [Nuxt 3](https://nuxt.com/), deploy to [Cloudflare Pages](https://pages.cloudflare.com/).
 
 ## Motivation
 
@@ -19,7 +19,7 @@ Hobbes is opinionated. The main goals and features are:
 - to show a list of tasks and their current status. These are then filterable by status and category.
 - to show a more detailed view of a task when you click on it.
 - to support markdown in the task description.
-- to implement a simple, markdown-compatible custom commenting system for tasks, which is still functional in external CalDAV clients which know nothing about Markdown.
+- to implement a simple, markdown-compatible custom commenting system for tasks, which is still functional in external CalDAV clients which know nothing about markdown.
 - to allow clients to add new issues for triage, and to encourage them to submit useful, actionable issues, leveraging LLMs for inline, subjective feedback.
 - to be essentially free to host on Cloudflare pages/workers.
 
@@ -44,7 +44,7 @@ Before you get started, you'll need a working CalDAV server. I use [baikal](http
 ```bash
 cp .env.example .env
 # fill in .env
-ni install
+ni
 nr dev
 ```
 
