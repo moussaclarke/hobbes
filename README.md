@@ -4,9 +4,9 @@ A solo dev project management web app, based on CalDAV VTODO.
 
 ## Motivation
 
-The use case is for a solo dev to share project status with clients and to receive feedback and issues from them in one place.
+The use case is for a solo dev to share project and task status with clients, and to receive feedback and issues from them in one place.
 
-I was happily using TickTick, and while it's got some really nice UI features, the API is under-powered and wouldn't allow me to build the specific integration I needed. I also generally prefer using Open Source software and open standards when I can - which led me down the CalDAV rabbit hole...
+I was happily using TickTick for tasks, and while it's got some really nice UI features, the API is pretty under-powered and wouldn't allow me to build the specific integrations I needed for e.g. issue submissions. I also generally prefer using Open Source software and open standards when I can - which led me down the CalDAV rabbit hole...
 
 ## Features
 
@@ -15,7 +15,7 @@ Hobbes is opinionated. The main goals and features are:
 - to show a list of tasks and their current status. These are then filterable by status and category.
 - to show a more detailed view of a task when you click on it.
 - to support markdown in the task description.
-- to implement a simple, markdown-compatible custom commenting system for tasks, which still makes sense in external CalDAV clients.
+- to implement a simple, markdown-compatible custom commenting system for tasks, which is still functional in external CalDAV clients which know nothing about Markdown.
 - to allow clients to add new issues for triage, and to encourage them to submit useful, actionable issues, leveraging LLMs for inline, subjective feedback.
 - to be essentially free to host on Cloudflare pages/workers.
 
@@ -31,11 +31,13 @@ Some non-goals are:
 - to be a full-featured project management tool - this isn't trying to be a monday.com or Jira replacement. Try [plane](https://plane.so) if you want a full fat Open Source project management tool.
 - to support non-compliant big tech CalDAV implementations like Yahoo, Apple or Google. Ain't nobody got time for that - CalDAV is complex enough as it is.
 - to need any kind of local database - all task data should live on the remote CalDAV server.
-- to support alternative task UI paradigms/views like Kanban boards or GANTT charts. Just a simple grid/list of tasks.
+- to support alternative task UI paradigms/views like Kanban boards or GANTT charts. Hobbes' view is a simple grid/list of tasks.
 
 ## Setup
 
 Before you get started, you'll need a working CalDAV server. I use [baikal](https://sabre.io/baikal/) for this.
+
+NB: I use [@antfu/ni](https://github.com/antfu-collective/ni) so I don't have to think about various node package managers across multiple projects, but you can use the underlying bun commands instead if you prefer - i.e. `bun install`, `bun run`, `bunx` etc.
 
 ```bash
 cp .env.example .env
@@ -63,15 +65,17 @@ The build process includes an automated post-build script that processes `dist/_
 nlx wrangler pages deploy dist
 ```
 
-The env vars will need to be set up manually in the cloudflare dashboard. The keys need to be prefixed with "NUXT_" for them to be picked up as runtime env vars. `NUXT_DAV_PASSWORD`, `NUXT_DAV_USER` and `NUXT_EMAIL_API_KEY` should be secrets.
+Env vars will need to be set up manually in the cloudflare dashboard. The keys need to be prefixed with "NUXT_" for them to be picked up as runtime env vars. `NUXT_DAV_PASSWORD`, `NUXT_DAV_USER` and `NUXT_EMAIL_API_KEY` should be secrets.
 
 The app also needs to be secured behind Cloudflare Access - it relies on cookie headers set by Cloudflare Access to get the email of the currently authenticated user. If you need more than 50 users you'll have to upgrade to a paid Cloudflare Access plan.
 
 It also needs Cloudflare Workers AI to provide subjective issue validation and feedback. The "Workers AI" binding needs to be enabled on the project and assigned to the `AI` name.
 
+This could all be in a wrangler.toml file, but that's a job for another day.
+
 ## Transactional Email Service
 
-I use [resend](https://resend.com/), which has a generous free tier. This is currently the only supported service, however it should be pretty straightforward to support other services by implementing an appropriate `emailProvider`.
+I use [resend](https://resend.com/), which has a generous free tier. This is currently the only supported service, however it should be pretty straightforward to handle other services by implementing an appropriate `emailProvider` - have a look at `server/utils/emailProviders/resend.ts`.  PRs welcome.
 
 ## Project Prompt
 
@@ -80,6 +84,8 @@ The project prompt configuration item tells the llm a bit about the client proje
 You can see the one I used on a specific client project in `.env.example` - I had to specifically tell it that the project didn't have any concept of plugins or it would consistently hallucinate irrelevant plugin-related feedback
 
 You can experiment with the [playground](https://playground.ai.cloudflare.com/) a bit to see what comes back. See `server/utils/validateFormWithLLM.ts` to check out the rest of the prompt.
+
+It's currently hardcoded to `llama-3.3-70b-instruct-fp8-fast` which seems to work well enough - we could make this configurable in the future. Cloudflare Workers AI free tier is pretty decent - as of writing, you get 10,000 free tokens per day.
 
 ## Comment Syntax
 
