@@ -2,13 +2,15 @@
 
 # Hobbes
 
-A solo dev project management web app, based on [CalDAV](https://www.ietf.org/rfc/rfc4791.txt) VTODO.
+Client collaboration hub for solo devs, based on [CalDAV](https://www.ietf.org/rfc/rfc4791.txt) VTODO.
 
-Built using [Nuxt 3](https://nuxt.com/), deploy to [Cloudflare Pages](https://pages.cloudflare.com/).
+Showcase task progress and collect client feedback, integrates with your existing CalDAV setup.
+
+Built using [Nuxt 3](https://nuxt.com/), deploys to [Cloudflare Pages](https://pages.cloudflare.com/).
 
 ## Motivation
 
-The use case is for a solo dev to share project and task status with clients, and to receive feedback and issues from them in one place.
+The use case is for a solo dev to share project and task status with clients, and to receive feedback and issues from them in one central platform.
 
 I was happily using TickTick for tasks, and while it's got some really nice UI features, the API is pretty under-powered and wouldn't allow me to build the specific integrations I needed for e.g. issue submissions. I also generally prefer using Open Source software and open standards when I can - which led me down the CalDAV rabbit hole...
 
@@ -59,7 +61,7 @@ nlx nuxi build --dot-env .env.example && nr scripts/post-build.ts
 
 This uses `.env.example` on purpose, so that private variables are not leaked into the production build. See below for how to set up the env vars in production.
 
-The build process includes an automated post-build script that processes `dist/_worker.js/chunks/_/davClient.mjs` to find and replace `n.fetch` with `fetch`. This is because nitro overwrites all instances of  the `fetch` function in the `tsdav` library with a non-existent custom one during build for some unknown reason 🤷‍♂️
+The build process includes an automated post-build script that processes `dist/_worker.js/chunks/_/davClient.mjs` to find and replace `n.fetch` with `fetch`. This is because nitro overwrites all instances of  the `fetch` function in the `tsdav` library with a non-existent custom one during build. 🤷‍♂️
 
 ## Deploy to Cloudflare Pages
 
@@ -69,11 +71,13 @@ nlx wrangler pages deploy dist
 
 Env vars will need to be set up manually in the cloudflare dashboard. The keys need to be prefixed with "NUXT_" for them to be picked up as runtime env vars. `NUXT_DAV_PASSWORD`, `NUXT_DAV_USER` and `NUXT_EMAIL_API_KEY` should be secrets.
 
-The app also needs to be secured behind Cloudflare Access - it relies on cookie headers set by Cloudflare Access to get the email of the currently authenticated user. If you need more than 50 users you'll have to upgrade to a paid Cloudflare Access plan.
+The app also needs to be secured behind [Cloudflare Access](https://www.cloudflare.com/en-gb/zero-trust/products/access/) - it relies on cookie headers set by Cloudflare Access to get the email of the currently authenticated user. If you need more than 50 users you'll have to upgrade to a paid Cloudflare Access plan.
 
-It also needs Cloudflare Workers AI to provide subjective issue validation and feedback. The "Workers AI" binding needs to be enabled on the project and assigned to the `AI` name.
+It also needs [Cloudflare Workers AI](https://developers.cloudflare.com/workers-ai/) to provide subjective issue validation and feedback. The "Workers AI" binding needs to be enabled on the project and assigned to the `AI` name.
 
-This could all be in a wrangler.toml file, but that's a job for another day.
+This could all be in a `wrangler.toml` file, but that's a job for another day.
+
+In theory we could also support other deployment targets, but that's not really a goal for now.
 
 ## Transactional Email Service
 
@@ -81,13 +85,15 @@ I use [resend](https://resend.com/), which has a generous free tier. This is cur
 
 ## Project Prompt
 
-The project prompt configuration item tells the llm a bit about the client project when formulating the issue submission feedback. You can also use it to inject any other text into the prompt in case you need to nudge its response.
+The app uses an llm on Cloudflare Workers AI to validate the quality of client-submitted issues.
+
+The project prompt configuration item tells the llm a bit about the client project when formulating the issue submission feedback. You can also use it to inject any other text into the prompt in case you need to nudge its response further.
 
 You can see the one I used on a specific client project in `.env.example` - I had to specifically tell it that the project didn't have any concept of plugins or it would consistently hallucinate irrelevant plugin-related feedback
 
 You can experiment with the [playground](https://playground.ai.cloudflare.com/) a bit to see what comes back. See `server/utils/validateFormWithLLM.ts` to check out the rest of the prompt.
 
-It's currently hardcoded to `llama-3.3-70b-instruct-fp8-fast` which seems to work well enough - we could make this configurable in the future. Cloudflare Workers AI free tier is pretty decent - as of writing, you get 10,000 free tokens per day.
+It's currently hardcoded to use the `llama-3.3-70b-instruct-fp8-fast` model which seems to work well enough - we could make this configurable in the future. Cloudflare Workers AI free tier is pretty decent - as of writing, you get 10,000 free tokens per day.
 
 ## Comment Syntax
 
