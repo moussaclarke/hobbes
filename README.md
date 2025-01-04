@@ -2,6 +2,8 @@
 
 A solo dev project management web app, based on CalDAV VTODO.
 
+Built using Nuxt 3, deploy to Cloudflare Pages.
+
 ## Motivation
 
 The use case is for a solo dev to share project and task status with clients, and to receive feedback and issues from them in one place.
@@ -107,7 +109,8 @@ You can add comments in any CalDAV client by following the above syntax, and the
 - Refactor, particularly CalDAV object parsing/handling
 - Performance improvements
 - Test all the things
-- Additional documentation
+- Additional documentation, examples, screenshots etc
+- Contributing guidelines
 
 ## License
 
