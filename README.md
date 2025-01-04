@@ -38,6 +38,7 @@ Some non-goals are:
 - to support non-compliant big tech CalDAV implementations like Yahoo, Apple or Google. Ain't nobody got time for that - CalDAV is complex enough as it is.
 - to need any kind of local database - all task data should live on the remote CalDAV server.
 - to support alternative task UI paradigms/views like Kanban boards or GANTT charts. Hobbes' view is a simple grid/list of tasks.
+- to support other deployment targets. That could change in the future though.
 
 ## Setup
 
@@ -76,8 +77,6 @@ The app also needs to be secured behind [Cloudflare Access](https://www.cloudfla
 It also needs [Cloudflare Workers AI](https://developers.cloudflare.com/workers-ai/) to provide subjective issue validation and feedback. The "Workers AI" binding needs to be enabled on the project and assigned to the `AI` name.
 
 This could all be in a `wrangler.toml` file, but that's a job for another day.
-
-In theory we could also support other deployment targets, but that's not really a goal for now.
 
 ## Transactional Email Service
 
