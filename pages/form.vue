@@ -22,7 +22,7 @@
       <p class="medium">
         If there is something really critical that needs addressing immediately
         (for example the site is completely down) it's probably better to
-        <a href="mailto:{{ notificationEmail}}">email me</a>
+        <a :href="'mailto:' + notificationEmail">email me</a>
         directly.
       </p>
     </div>
