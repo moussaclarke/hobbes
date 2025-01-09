@@ -36,6 +36,7 @@
             name="issue-type"
             id="issue-type"
             required
+            :disabled="disabled"
           >
             <option value="bug">
               {{ getTaskTypeEmoji("bug") }} Bug - Something isn't working as
@@ -67,6 +68,7 @@
             name="priority"
             id="priority"
             required
+            :disabled="disabled"
           >
             <option value="low">Low</option>
             <option value="medium">Medium</option>
@@ -87,6 +89,7 @@
           name="summary"
           id="summary"
           required
+          :disabled="disabled"
         />
         <small>
           A concise summary of the issue. It's often more useful to try to
@@ -102,6 +105,7 @@
           name="description"
           id="description"
           required
+          :disabled="disabled"
         ></textarea>
         <small
           v-html="
@@ -118,6 +122,7 @@
           name="context"
           id="context"
           required
+          :disabled="disabled"
         ></textarea>
         <small
           v-html="'Please provide some additional context: ' + contextHelpText"
