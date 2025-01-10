@@ -25,7 +25,7 @@ Hobbes is opinionated. The main goals and features are:
 - to allow clients to add new issues for triage, and to encourage them to submit useful, actionable issues, leveraging LLMs for inline, subjective feedback.
 - to be essentially free to host on Cloudflare pages/workers.
 
-I do the actual task management and editing via [Thunderbird](https://www.thunderbird.net/) on my desktop, and [Tasks.org](https://tasks.org/) on my phone. I run a [baikal](https://sabre.io/baikal/) server, which is what Hobbes is currently deployed against in my setup, but it should work with other compliant CalDAV servers, like FastMail, Nextcloud or whatever.
+Actual task management and editing can happen via apps such as [Thunderbird](https://www.thunderbird.net/) on desktop, and [Tasks.org](https://tasks.org/) on phones. Hobbes is only tested against a [baikal](https://sabre.io/baikal/) server, but it may work with other compliant CalDAV servers, like Radicale, FastMail, Nextcloud or whatever.
 
 You can think of Hobbes as offering an _extremely_ lightweight subset of monday.com or Github Issues features on top of CalDAV.
 
@@ -42,7 +42,7 @@ Some non-goals are:
 
 ## Setup
 
-Before you get started, you'll need a working CalDAV server. I use [baikal](https://sabre.io/baikal/) for this. You'll also need a Cloudflare account as well as [bun](https://bun.sh/), [wrangler](https://developers.cloudflare.com/workers/wrangler/) and [@antfu/ni](https://github.com/antfu-collective/ni) installed locally.
+Before you get started, you'll need a working CalDAV server. [baikal](https://sabre.io/baikal/) is the recommended option for this. You'll also need a Cloudflare account as well as [bun](https://bun.sh/), [wrangler](https://developers.cloudflare.com/workers/wrangler/) and [@antfu/ni](https://github.com/antfu-collective/ni) installed locally.
 
 ```bash
 cp .env.example .env
@@ -88,7 +88,7 @@ The app uses an llm on Cloudflare Workers AI to validate the quality of client-s
 
 The project prompt configuration item tells the llm a bit about the client project when formulating the issue submission feedback. You can also use it to inject any other text into the prompt in case you need to nudge its response further.
 
-You can see the one I used on a specific client project in `.env.example` - I had to specifically tell it that the project didn't have any concept of plugins or it would consistently hallucinate irrelevant plugin-related feedback
+You can check out a prompt used on a specific project in `.env.example` - I had to specifically tell it that the project didn't have any concept of plugins or it would consistently hallucinate irrelevant plugin-related feedback.
 
 You can experiment with the [playground](https://playground.ai.cloudflare.com/) a bit to see what comes back. See `server/utils/validateFormWithLLM.ts` to check out the rest of the prompt.
 
