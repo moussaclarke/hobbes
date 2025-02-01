@@ -1,9 +1,0 @@
-.columns {
-    column-count: auto;
-    column-width: var(--column-width, 20ch);
-    gap: var(--grid-gutter);
-}
-
-.columns.wide {
-    --column-width: 40ch;
-}

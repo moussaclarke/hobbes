@@ -1,10 +1,7 @@
 .box {
-    /* ↓ Padding set to the first point on the modular scale */
-    padding: var(--space-m);
+  padding: var(--space-m);
 }
 
 .box * {
-    /* ↓ Force colors to inherit from the parent
-    and honor inversion */
-    color: inherit;
+  color: inherit;
 }
