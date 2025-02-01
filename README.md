@@ -106,6 +106,12 @@ The comment system uses the following syntax:
 
 You can add comments in any CalDAV client by following the above syntax, and the web app will format them accordingly.
 
+### Screenshots
+
+![Screenshot](https://raw.githubusercontent.com/moussaclarke/hobbes/main/screenshot1.png)
+
+![Screenshot](https://raw.githubusercontent.com/moussaclarke/hobbes/main/screenshot2.png)
+
 ## Todo
 
 - Support multiple projects
