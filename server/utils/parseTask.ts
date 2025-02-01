@@ -38,6 +38,7 @@ const parsers: Record<string, (value: string) => any> = {
   "PERCENT-COMPLETE": (value) => ({ percentComplete: parseInt(value, 10) }),
   COMPLETED: (value) => ({ completed: parseCalDAVDate(value) }),
   ORGANIZER: (value) => ({ organizer: value.split("mailto:")[1] }),
+  PRIORITY: (value) => ({ priority: parseInt(value, 10) }),
 };
 
 export function parseTask(rawTask: {

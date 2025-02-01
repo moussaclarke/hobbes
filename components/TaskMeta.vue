@@ -21,6 +21,9 @@
         <span class="x-small">
           Last modified: {{ taskWithDates?.lastModified.toLocaleDateString() }}
         </span>
+        <span class="x-small" v-if="taskWithDates?.priority">
+          Priority: {{ taskWithDates?.priority }}
+        </span>
         <span class="x-small" v-if="taskWithDates?.organizer">
           Opened by: {{ taskWithDates?.organizer }}
         </span>
