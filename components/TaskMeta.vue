@@ -15,14 +15,14 @@
         <strong class="x-small">
           {{ status }}
         </strong>
+        <span class="x-small" v-if="priority">
+          Priority: {{ priority.label }} {{ priority.emoji }}
+        </span>
         <span class="x-small">
           Created: {{ taskWithDates?.created.toLocaleDateString() }}
         </span>
         <span class="x-small">
           Last modified: {{ taskWithDates?.lastModified.toLocaleDateString() }}
-        </span>
-        <span class="x-small" v-if="taskWithDates?.priority">
-          Priority: {{ taskWithDates?.priority }}
         </span>
         <span class="x-small" v-if="taskWithDates?.organizer">
           Opened by: {{ taskWithDates?.organizer }}
@@ -33,6 +33,7 @@
 </template>
 <script setup lang="ts">
 import { getStatusEmoji } from "../utils/taskStatuses";
+import { getPriority } from "~/utils/taskPriorities";
 const props = defineProps<{ task: Task | null }>();
 const taskWithDates = computed(() => props.task && setTaskDates(props.task));
 
@@ -55,6 +56,8 @@ const status = computed(() => {
   }
   return props.task.status;
 });
+
+const priority = computed(() => getPriority(props.task?.priority));
 
 const emoji = computed(() => getStatusEmoji(props.task?.status));
 </script>

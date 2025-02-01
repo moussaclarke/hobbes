@@ -21,6 +21,8 @@ declare type TaskStatus =
   | "COMPLETED"
   | "CANCELLED";
 
+declare type TaskPriority = "NONE" | "LOW" | "MEDIUM" | "HIGH";
+
 declare type EmailOptions = {
   to: string;
   subject: string;
