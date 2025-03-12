@@ -184,6 +184,9 @@ export default function () {
             _attributes: { name: "VCALENDAR" },
             "comp-filter": {
               _attributes: { name: "VTODO" },
+              "prop-filter": {
+                _attributes: { name: "CATEGORIES" },
+              },
             },
           },
         },
