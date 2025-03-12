@@ -106,6 +106,10 @@ The comment system uses the following syntax:
 
 You can add comments in any CalDAV client by following the above syntax, and the web app will format them accordingly.
 
+## Private Tasks
+
+You might want to make some tasks private (e.g. internal admin tasks) so that clients can't view them. For now you can simply not give them a category and they won't appear. We might make this more explicit in future.
+
 ### Screenshots
 
 ![Screenshot](https://raw.githubusercontent.com/moussaclarke/hobbes/main/screenshot1.png)
