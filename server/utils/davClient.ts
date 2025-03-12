@@ -186,6 +186,10 @@ export default function () {
               _attributes: { name: "VTODO" },
               "prop-filter": {
                 _attributes: { name: "CATEGORIES" },
+                "text-match": {
+                  _attributes: { "negate-condition": "yes" },
+                  _text: "private",
+                },
               },
             },
           },
