@@ -198,7 +198,9 @@ export default function () {
       headers: await getCalendarHeaders("REPORT"),
     });
 
-    return tasks;
+    return tasks.filter(
+      (task) => !parseTask(task).categories?.includes("private"),
+    );
   };
 
   const getTask = async (uid: string) => {
