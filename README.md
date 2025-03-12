@@ -108,7 +108,7 @@ You can add comments in any CalDAV client by following the above syntax, and the
 
 ## Private Tasks
 
-You might want to make some tasks private (e.g. internal admin tasks) so that clients can't view them. For now you can simply not give them a category and they won't appear. I might make this more explicit in future.
+You might want to make some tasks private (e.g. internal admin tasks) so that clients can't view them. You can simply not give them a category and they won't appear, or you can add the category "private" and they will be filtered out.
 
 ## Screenshots
 
