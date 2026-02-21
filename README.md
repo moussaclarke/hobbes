@@ -129,4 +129,4 @@ You might want to make some tasks private (e.g. internal admin tasks) so that cl
 
 ## License
 
-GPL
+GPL v3
