@@ -6,7 +6,7 @@ Client collaboration hub for solo devs, based on [CalDAV](https://www.ietf.org/r
 
 Showcase task progress and collect client feedback, integrates with your existing CalDAV setup.
 
-Built using [Nuxt 3](https://nuxt.com/), deploys to [Cloudflare Pages](https://pages.cloudflare.com/).
+Built using [Nuxt 4](https://nuxt.com/), deploys to [Cloudflare Pages](https://pages.cloudflare.com/).
 
 ## Motivation
 
