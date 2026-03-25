@@ -42,7 +42,7 @@ Some non-goals are:
 
 ## Setup
 
-Before you get started, you'll need a working CalDAV server. [baikal](https://sabre.io/baikal/) is the recommended option for this. You'll also need a Cloudflare account as well as [bun](https://bun.sh/), [wrangler](https://developers.cloudflare.com/workers/wrangler/) and [@antfu/ni](https://github.com/antfu-collective/ni) installed locally.
+Before you get started, you'll need a working CalDAV server. [baikal](https://sabre.io/baikal/) is the recommended option for this. You'll also need a Cloudflare account as well as [bun](https://bun.sh/) and [@antfu/ni](https://github.com/antfu-collective/ni) installed locally.
 
 ```bash
 cp .env.example .env
