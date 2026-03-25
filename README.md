@@ -57,7 +57,7 @@ nr dev
 nr build
 
 # under the hood this runs
-nlx nuxi build --dot-env .env.example && nr scripts/post-build.ts
+nlx nuxi build --dotenv .env.example && nr scripts/post-build.ts
 ```
 
 This uses `.env.example` on purpose, so that private variables are not leaked into the production build. See below for how to set up the env vars in production.
