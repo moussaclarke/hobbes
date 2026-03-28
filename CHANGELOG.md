@@ -1,3 +1,27 @@
+## [0.3.0] - 2026-03-28
+
+### 🐛 Bug Fixes
+
+- Do caldav service discovery
+
+### 🚜 Refactor
+
+- Reimplement davclient without all the boilerplate
+
+### 📚 Documentation
+
+- Add changelog
+- Update readme
+- Update readme
+- Update readme and add wrangler.toml.example
+
+### ⚙️ Miscellaneous Tasks
+
+- Update versions and setting
+- Try rewriting davclient
+- Make data a bit more resilient to errors
+- Update build and dev cmds
+- Remove the redundant post build step and update readme accordingly
 ## [0.2.0] - 2026-03-25
 
 ### 📚 Documentation
