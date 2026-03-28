@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nlx nuxi build --dotenv .env.example && nr scripts/post-build.ts",
-    "dev": "nuxt dev",
+    "build": "nlx nuxi build --dotenv .env && nr scripts/post-build.ts",
+    "dev": "nuxt dev --dotenv .env.test --host",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
