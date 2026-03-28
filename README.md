@@ -54,15 +54,15 @@ nr dev
 ## Build
 
 ```bash
+cp .env.example .env
+# fill in .env
 nr build
 
 # under the hood this runs
-nlx nuxi build --dotenv .env.example && nr scripts/post-build.ts
+nlx nuxi build --dotenv .env
 ```
 
-This uses `.env.example` on purpose, so that private variables are not leaked into the production build. See below for how to set up the env vars in production.
-
-The build process includes an automated post-build script that processes `dist/_worker.js/chunks/_/davClient.mjs` to find and replace `n.fetch` with `fetch`. This is because nitro overwrites all instances of  the `fetch` function in the `tsdav` library with a non-existent custom one during build. 🤷‍♂️
+Be careful not leak secrets into the production build. The only field you actually need to fill in for `.env` is `DAV_CAL_NAME` since that will get bundled. See below for how to set up the rest of the env vars in production.
 
 ## Deploy to Cloudflare Pages
 
