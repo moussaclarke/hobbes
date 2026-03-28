@@ -11,3 +11,6 @@ NUXT_DAV_URI = "/dav.php"
 NUXT_PROJECT_PROMPT = "The web application in question is a bespoke CMS for their website developed by us on top of Laravel and TwillCMS. It does not have plugins and the user would have no concept of such a thing. If the user refers to the \"dashboard\" they usually mean the admin part of the CMS, which is where they can set up pages, articles, products and so on."
 NUXT_EMAIL_PROVIDER = "resend"
 NUXT_NOTIFICATION_EMAIL = "email@example.com"
+
+[ai]
+binding = "AI"
