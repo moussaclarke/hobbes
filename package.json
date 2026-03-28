@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@fontsource-variable/montserrat": "^5.2.8",
-    "@mreal/digest-auth": "^2.0.0",
     "@nuxt/kit": "^4.4.2",
     "@nuxt/schema": "^4.4.2",
     "@vueuse/core": "^14.2.1",
@@ -20,7 +19,6 @@
     "jwt-decode": "^4.0.0",
     "micromark": "^4.0.2",
     "nuxt": "^4.4.2",
-    "tsdav": "^2.1.8",
     "vue": "latest",
     "vue-router": "latest"
   },
