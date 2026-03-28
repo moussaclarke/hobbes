@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@fontsource-variable/montserrat": "^5.2.8",
+    "@noble/hashes": "^2.0.1",
     "@nuxt/kit": "^4.4.2",
     "@nuxt/schema": "^4.4.2",
     "@vueuse/core": "^14.2.1",
     "@vueuse/integrations": "^14.2.1",
+    "fast-xml-parser": "^5.5.9",
     "fuse.js": "^7.1.0",
     "jwt-decode": "^4.0.0",
     "micromark": "^4.0.2",
