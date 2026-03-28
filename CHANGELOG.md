@@ -1,3 +1,12 @@
+## [0.3.1] - 2026-03-28
+
+### 📚 Documentation
+
+- Update changelog
+
+### ⚙️ Miscellaneous Tasks
+
+- Ai binding
 ## [0.3.0] - 2026-03-28
 
 ### 🐛 Bug Fixes
