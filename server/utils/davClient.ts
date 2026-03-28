@@ -224,20 +224,66 @@ export default function davClient() {
   };
 
   /**
-   * PROPFIND the principal URL and return the href of the calendar whose
-   * displayName matches config.davCalName.
+   * Proper 3-step CalDAV service discovery:
+   * 1. PROPFIND root → current-user-principal
+   * 2. PROPFIND principal → calendar-home-set
+   * 3. PROPFIND calendar home (Depth:1) → find calendar by displayname
    */
   const getCalendarHref = async (): Promise<string> => {
     if (cachedCalendarHref) return cachedCalendarHref;
 
     const config = useRuntimeConfig();
-    const url = config.davBase + config.davURI;
+    const base = config.davBase;
+    const rootUrl = base + config.davURI;
 
-    const res = await davFetch(
-      url,
+    // Step 1: get current-user-principal
+    const principalRes = await davFetch(
+      rootUrl,
       "PROPFIND",
       `<?xml version="1.0" encoding="UTF-8"?>
-<d:propfind xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav">
+<d:propfind xmlns:d="DAV:">
+  <d:prop>
+    <d:current-user-principal/>
+  </d:prop>
+</d:propfind>`,
+      { Depth: "0" }
+    );
+    const principalXml = await principalRes.text();
+    const principalHref = xmlText(principalXml, "current-user-principal")
+      ?.match(/<(?:[a-zA-Z]+:)?href[^>]*>([^<]+)<\/(?:[a-zA-Z]+:)?href>/i)?.[1]
+      ?.trim();
+
+    if (!principalHref) {
+      throw createError({ statusCode: 500, message: "Could not determine CalDAV principal" });
+    }
+
+    // Step 2: get calendar-home-set from principal
+    const homeRes = await davFetch(
+      base + principalHref,
+      "PROPFIND",
+      `<?xml version="1.0" encoding="UTF-8"?>
+<d:propfind xmlns:d="DAV:" xmlns:c="urn:ietf:params:xml:ns:caldav">
+  <d:prop>
+    <c:calendar-home-set/>
+  </d:prop>
+</d:propfind>`,
+      { Depth: "0" }
+    );
+    const homeXml = await homeRes.text();
+    const homeHref = xmlText(homeXml, "calendar-home-set")
+      ?.match(/<(?:[a-zA-Z]+:)?href[^>]*>([^<]+)<\/(?:[a-zA-Z]+:)?href>/i)?.[1]
+      ?.trim();
+
+    if (!homeHref) {
+      throw createError({ statusCode: 500, message: "Could not determine calendar home set" });
+    }
+
+    // Step 3: list calendars and find by displayname
+    const calRes = await davFetch(
+      base + homeHref,
+      "PROPFIND",
+      `<?xml version="1.0" encoding="UTF-8"?>
+<d:propfind xmlns:d="DAV:" xmlns:c="urn:ietf:params:xml:ns:caldav">
   <d:prop>
     <d:displayname/>
     <d:resourcetype/>
@@ -245,14 +291,11 @@ export default function davClient() {
 </d:propfind>`,
       { Depth: "1" }
     );
+    const calXml = await calRes.text();
 
-    const text = await res.text();
-
-    for (const block of xmlResponses(text)) {
-      // resourcetype must contain a <cal:calendar> element
+    for (const block of xmlResponses(calXml)) {
       const resourceType = xmlText(block, "resourcetype") ?? "";
       if (!xmlHasTag(resourceType, "calendar")) continue;
-
       const displayName = xmlText(block, "displayname");
       if (displayName === config.davCalName) {
         const href = xmlText(block, "href");
@@ -263,7 +306,7 @@ export default function davClient() {
       }
     }
 
-    throw createError({ statusCode: 404, message: "Calendar not found" });
+    throw createError({ statusCode: 404, message: `Calendar "${config.davCalName}" not found` });
   };
 
   /**
