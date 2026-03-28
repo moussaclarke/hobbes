@@ -89,9 +89,7 @@ provide("taskData", taskData);
 const statusFilter: Ref<"All" | "Todo" | "Done"> = ref("Todo");
 const categories = computed(() => [
   ...new Set(
-    data.value.data.reduce((acc, curr) => {
-      return [...acc, ...curr.categories];
-    }, []),
+   (data.value?.data ?? []).flatMap((task) => task.categories ?? []),
   ),
 ]);
 
