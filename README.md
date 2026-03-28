@@ -45,8 +45,8 @@ Some non-goals are:
 Before you get started, you'll need a working CalDAV server. [baikal](https://sabre.io/baikal/) is the recommended option for this. You'll also need a Cloudflare account as well as [bun](https://bun.sh/) and [@antfu/ni](https://github.com/antfu-collective/ni) installed locally.
 
 ```bash
-cp .env.example .env
-# fill in .env
+cp .env.example .env.test
+# fill in .env.test
 ni
 nr dev
 ```
@@ -67,10 +67,12 @@ The build process includes an automated post-build script that processes `dist/_
 ## Deploy to Cloudflare Pages
 
 ```bash
-nlx wrangler pages deploy dist
+cp wrangler.toml.example wrangler.toml
+# fill in wrangler.toml
+nlx wrangler pages deploy
 ```
 
-Env vars will need to be set up manually in the cloudflare dashboard. The keys need to be prefixed with "NUXT_" for them to be picked up as runtime env vars. `NUXT_DAV_PASSWORD`, `NUXT_DAV_USER` and `NUXT_EMAIL_API_KEY` should be secrets.
+Secret env vars will need to be set up manually in the cloudflare dashboard. The keys need to be prefixed with "NUXT_" for them to be picked up as runtime env vars. `NUXT_DAV_PASSWORD`, `NUXT_DAV_USER` and `NUXT_EMAIL_API_KEY` should be secrets. The others are defined in `wrangler.toml`
 
 The app also needs to be secured behind [Cloudflare Access](https://www.cloudflare.com/en-gb/zero-trust/products/access/) - it relies on cookie headers set by Cloudflare Access to get the email of the currently authenticated user. If you need more than 50 users you'll have to upgrade to a paid Cloudflare Access plan.
 
